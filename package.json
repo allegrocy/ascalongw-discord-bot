@@ -1,23 +1,23 @@
 {
-  "name": "ascalongw-discord-bot",
-  "version": "1.0.0",
-  "description": "AscalonGW Discord Bot",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/allegrocy/ascalongw-discord-bot.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/allegrocy/ascalongw-discord-bot/issues"
-  },
-  "homepage": "https://github.com/allegrocy/ascalongw-discord-bot#readme",
-  "dependencies": {
-    "discord.js": "^12.3.1",
-    "eslint": "^7.11.0"
-  }
+    "name": "ascalongw-discord-bot",
+    "version": "1.0.0",
+    "description": "AscalonGW Discord Bot",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/allegrocy/ascalongw-discord-bot.git"
+    },
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/allegrocy/ascalongw-discord-bot/issues"
+    },
+    "homepage": "https://github.com/allegrocy/ascalongw-discord-bot#readme",
+    "dependencies": {
+        "discord.js": "^12.3.1",
+        "eslint": "^7.11.0"
+    }
 }
