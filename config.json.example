@@ -1,4 +1,9 @@
 {
-    "prefix": "!",
-    "token": "your-token-goes-here"
+    "prefix": "-",
+    "token": "your-token-goes-here",
+    "owners": ["bot-owner-ids"],
+    "channels": {
+        "giveaways": "387595414259367939",
+        "pricecheck": "445966670016806951"
+    }
 }
