@@ -14,6 +14,7 @@
     },
     "homepage": "https://github.com/allegrocy/ascalongw-discord-bot#readme",
     "dependencies": {
+        "date-fns": "^2.16.1",
         "discord.js": "^12.3.1",
         "discord.js-commando": "github:discordjs/Commando",
         "eslint": "^7.11.0"
