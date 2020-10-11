@@ -1,13 +1,13 @@
-const { intervalToDuration } = require('date-fns');
-const { Command } = require('discord.js-commando');
+import { intervalToDuration } from 'date-fns';
+import { Command, CommandoClient, CommandoMessage } from 'discord.js-commando';
 
-const {
+import {
     getActivity,
     getActivityMeta,
-} = require('../../lib/activities');
+} from '../../lib/activities';
 
-module.exports = class SkillbarCommand extends Command {
-    constructor(client) {
+export = class SkillbarCommand extends Command {
+    constructor(client: CommandoClient) {
         super(client, {
             name: 'zaishen-quest',
             aliases: ['zaishen-quest', 'zq'],
@@ -18,11 +18,11 @@ module.exports = class SkillbarCommand extends Command {
         });
     }
 
-    async run(message) {
+    async run(message: CommandoMessage) {
         const { endDate } = getActivityMeta('zaishen-mission');
         const now = new Date();
 
-        const zaishenQuestsText = (date) => [
+        const zaishenQuestsText = (date: Date) => [
             `Zaishen Mission: **${getActivity('zaishen-mission', date)}**`,
             `Zaishen Bounty: **${getActivity('zaishen-bounty', date)}**`,
             `Zaishen Vanquish: **${getActivity('zaishen-vanquish', date)}**`,
@@ -44,4 +44,4 @@ module.exports = class SkillbarCommand extends Command {
             `Zaishen Daily Quest will reset in **${resetOutput}**`,
         ]);
     }
-};
+}

@@ -6,91 +6,106 @@
 const MILLISECONDS_PER_DAY = 24 * 60 * 60 * 1000;
 const MILLISECONDS_PER_WEEK = MILLISECONDS_PER_DAY * 7;
 
+import nicholasSandford from './activities/nicholas-sandford.json';
+import nicholasTheTraveler from './activities/nicholas-the-traveler.json';
+import pveBonus from './activities/pve-bonus.json';
+import pvpBonus from './activities/pvp-bonus.json';
+import vanguard from './activities/vanguard.json';
+import wanted from './activities/wanted.json';
+import zaishenBounty from './activities/zaishen-bounty.json';
+import zaishenCombat from './activities/zaishen-combat.json';
+import zaishenMission from './activities/zaishen-mission.json';
+import zaishenVanquish from './activities/zaishen-vanquish.json';
+
 const ACTIVITIES = {
     'nicholas-sandford': {
-        data: require('./activities/nicholas-sandford.json'),
+        data: nicholasSandford,
         startDate: new Date(1239260400000),
         period: MILLISECONDS_PER_DAY,
     },
     'nicholas-the-traveler': {
-        data: require('./activities/nicholas-the-traveler.json'),
+        data: nicholasTheTraveler,
         startDate: new Date(1323097200000),
         period: MILLISECONDS_PER_WEEK,
     },
     'pve-bonus': {
-        data: require('./activities/pve-bonus.json'),
+        data: pveBonus,
         startDate: new Date(1368457200000),
         period: MILLISECONDS_PER_WEEK,
     },
     'pvp-bonus': {
-        data: require('./activities/pvp-bonus.json'),
+        data: pvpBonus,
         startDate: new Date(1368457200000),
         period: MILLISECONDS_PER_WEEK,
     },
     'vanguard': {
-        data: require('./activities/vanguard.json'),
+        data: vanguard,
         startDate: new Date(1276012800000),
         period: MILLISECONDS_PER_DAY,
     },
     'wanted': {
-        data: require('./activities/wanted'),
+        data: wanted,
         startDate: new Date(1276012800000),
         period: MILLISECONDS_PER_DAY,
     },
     'zaishen-bounty': {
-        data: require('./activities/zaishen-bounty.json'),
+        data: zaishenBounty,
         startDate: new Date(1299168000000),
         period: MILLISECONDS_PER_DAY,
     },
     'zaishen-combat': {
-        data: require('./activities/zaishen-combat.json'),
+        data: zaishenCombat,
         startDate: new Date(1256227200000),
         period: MILLISECONDS_PER_DAY,
     },
     'zaishen-mission': {
-        data: require('./activities/zaishen-mission.json'),
+        data: zaishenMission,
         startDate: new Date(1299168000000),
         period: MILLISECONDS_PER_DAY,
     },
     'zaishen-vanquish': {
-        data: require('./activities/zaishen-vanquish.json'),
+        data: zaishenVanquish,
         startDate: new Date(1299168000000),
         period: MILLISECONDS_PER_DAY,
     },
 };
 
-module.exports.getActivity = function getActivity(type, date) {
-    const checkDate = date || new Date();
+export function getActivity<T extends keyof typeof ACTIVITIES>(type: T, date: Date = new Date()): typeof ACTIVITIES[T]['data'][0] {
     const { data, startDate, period } = ACTIVITIES[type];
-    const index = getIndex(data, startDate, period, checkDate);
+    const index = getIndex(data, startDate, period, date);
     return data[index];
-};
+}
 
-module.exports.getActivityMeta = function getActivityMeta(type, date) {
-    const checkDate = date || new Date();
+export function getActivityMeta<T extends keyof typeof ACTIVITIES>(type: T, date: Date = new Date()): {
+    activity: typeof ACTIVITIES[T]['data'][0],
+    startDate: Date,
+    endDate: Date,
+} {
     const { data, startDate, period } = ACTIVITIES[type];
-    const index = getIndex(data, startDate, period, checkDate);
+    const index = getIndex(data, startDate, period, date);
     return {
         activity: data[index],
-        startDate: getActivityStartDate(type, checkDate),
-        endDate: getActivityEndDate(type, checkDate),
+        startDate: getActivityStartDate(type, date),
+        endDate: getActivityEndDate(type, date),
     };
-};
+}
 
-function getIndex(data, startDate, period, date) {
+// @fixme using a generic type for data messes with the functions above, will have to look into this and clean up
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function getIndex(data: any[], startDate: Date, period: number, date: Date) {
     const elapsedTime = date.getTime() - startDate.getTime();
     const elapsedRotations = Math.floor(elapsedTime / period);
     return elapsedRotations % data.length;
 }
 
-function getActivityStartDate(type, date) {
+function getActivityStartDate<T extends keyof typeof ACTIVITIES>(type: T, date: Date) {
     const { startDate, period } = ACTIVITIES[type];
     const elapsedTime = date.getTime() - startDate.getTime();
     const timestamp = Math.floor(elapsedTime / period) * period + startDate.getTime();
     return new Date(timestamp);
 }
 
-function getActivityEndDate(type, date) {
+function getActivityEndDate<T extends keyof typeof ACTIVITIES>(type: T, date: Date) {
     const { startDate, period } = ACTIVITIES[type];
     const elapsedTime = date.getTime() - startDate.getTime();
     const timestamp = Math.floor(elapsedTime / period) * period + startDate.getTime() + period;

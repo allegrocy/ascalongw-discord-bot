@@ -1,6 +1,7 @@
-const commando = require('discord.js-commando');
-const path = require('path');
-const config = require('./config.json');
+import commando from 'discord.js-commando';
+
+import path from 'path';
+import config from '../config.json';
 
 const client = new commando.Client({
     commandPrefix: config.prefix,
@@ -10,6 +11,7 @@ const client = new commando.Client({
 // TODO: connect to database
 
 client.once('ready', async () => {
+    if (!client.user) return;
     console.log(`Ready! Logged in as ${client.user.username}#${client.user.discriminator}.`);
     console.log(await client.generateInvite());
 });

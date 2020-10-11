@@ -2,7 +2,7 @@
     "name": "ascalongw-discord-bot",
     "version": "1.0.0",
     "description": "AscalonGW Discord Bot",
-    "main": "index.js",
+    "main": "src/index.ts",
     "repository": {
         "type": "git",
         "url": "git+https://github.com/allegrocy/ascalongw-discord-bot.git"
@@ -13,10 +13,26 @@
         "url": "https://github.com/allegrocy/ascalongw-discord-bot/issues"
     },
     "homepage": "https://github.com/allegrocy/ascalongw-discord-bot#readme",
+    "scripts": {
+        "lint": " eslint . --ext .js,.ts",
+        "build": "tsc -p tsconfig.json",
+        "dev": "nodemon src/index.ts",
+        "dev:debug": "nodemon --inspect src/index.ts"
+    },
     "dependencies": {
+        "@types/node": "^14.11.8",
+        "@types/ws": "^7.2.7",
         "date-fns": "^2.16.1",
         "discord.js": "^12.3.1",
-        "discord.js-commando": "github:discordjs/Commando",
-        "eslint": "^7.11.0"
+        "discord.js-commando": "github:discordjs/Commando"
+    },
+    "devDependencies": {
+        "@typescript-eslint/eslint-plugin": "^4.4.0",
+        "@typescript-eslint/parser": "^4.4.0",
+        "eslint": "^7.11.0",
+        "nodemon": "^2.0.4",
+        "ts-node": "^9.0.0",
+        "typescript": "^4.0.3",
+        "typescript-eslint": "0.0.1-alpha.0"
     }
 }
