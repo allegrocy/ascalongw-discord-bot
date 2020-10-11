@@ -1,0 +1,824 @@
+[
+  {
+    "region": "Ascalon",
+    "amount": 3,
+    "item": "Red Iris Flowers",
+    "area": "Regent Valley"
+  },
+  {
+    "region": "Southern Shiverpeaks",
+    "amount": 3,
+    "item": "Feathered Avicara Scalps",
+    "area": "Mineral Springs"
+  },
+  {
+    "region": "The Desolation",
+    "amount": 2,
+    "item": "Margonite Masks",
+    "area": "Poisoned Outcrops"
+  },
+  {
+    "region": "Tarnished Coast",
+    "amount": 2,
+    "item": "Quetzal Crests",
+    "area": "Alcazia Tangle"
+  },
+  {
+    "region": "Kaineng City",
+    "amount": 3,
+    "item": "Plague Idols",
+    "area": "Wajjun Bazaar"
+  },
+  {
+    "region": "Southern Shiverpeaks",
+    "amount": 2,
+    "item": "Azure Remains",
+    "area": "Dreadnought's Drift"
+  },
+  {
+    "region": "Kourna",
+    "amount": 1,
+    "item": "Mandragor Root Cake",
+    "area": "Arkjok Ward"
+  },
+  {
+    "region": "Ring of Fire Islands",
+    "amount": 1,
+    "item": "Mahgo Claw",
+    "area": "Perdition Rock"
+  },
+  {
+    "region": "Shing Jea Island",
+    "amount": 5,
+    "item": "Mantid Pincers",
+    "area": "Saoshang Trail"
+  },
+  {
+    "region": "Istan",
+    "amount": 3,
+    "item": "Sentient Seeds",
+    "area": "Fahranur The First City"
+  },
+  {
+    "region": "Charr Homelands",
+    "amount": 2,
+    "item": "Stone Grawl Necklaces",
+    "area": "Sacnoth Valley"
+  },
+  {
+    "region": "Kryta",
+    "amount": 1,
+    "item": "Herring",
+    "area": "Twin Serpent Lakes"
+  },
+  {
+    "region": "The Jade Sea",
+    "amount": 3,
+    "item": "Naga Skins",
+    "area": "Mount Qinkai"
+  },
+  {
+    "region": "Maguuma Jungle",
+    "amount": 1,
+    "item": "Gloom Seed",
+    "area": "The Falls"
+  },
+  {
+    "region": "Ascalon",
+    "amount": 1,
+    "item": "Charr Hide",
+    "area": "The Breach"
+  },
+  {
+    "region": "The Desolation",
+    "amount": 1,
+    "item": "Ruby Djinn Essence",
+    "area": "The Alkali Pan"
+  },
+  {
+    "region": "Kryta",
+    "amount": 2,
+    "item": "Thorny Carapaces",
+    "area": "Majesty's Rest"
+  },
+  {
+    "region": "The Jade Sea",
+    "amount": 3,
+    "item": "Bone Charms",
+    "area": "Rhea's Crater"
+  },
+  {
+    "region": "Far Shiverpeaks",
+    "amount": 3,
+    "item": "Modniir Manes",
+    "area": "Varajar Fells"
+  },
+  {
+    "region": "Charr Homelands",
+    "amount": 3,
+    "item": "Superb Charr Carvings",
+    "area": "Dalada Uplands"
+  },
+  {
+    "region": "Shing Jea Island",
+    "amount": 5,
+    "item": "Rolls of Parchment",
+    "area": "Zen Daijun"
+  },
+  {
+    "region": "Vabbi",
+    "amount": 2,
+    "item": "Roaring Ether Claws",
+    "area": "Garden of Seborhin"
+  },
+  {
+    "region": "Kaineng City",
+    "amount": 3,
+    "item": "Branches of Juni Berries",
+    "area": "Bukdek Byway"
+  },
+  {
+    "region": "Northern Shiverpeaks",
+    "amount": 3,
+    "item": "Shiverpeak Manes",
+    "area": "Deldrimor Bowl"
+  },
+  {
+    "region": "Ascalon",
+    "amount": 3,
+    "item": "Fetid Carapaces",
+    "area": "Eastern Frontier"
+  },
+  {
+    "region": "The Jade Sea",
+    "amount": 2,
+    "item": "Moon Shells",
+    "area": "Gyala Hatchery"
+  },
+  {
+    "region": "Crystal Desert",
+    "amount": 1,
+    "item": "Massive Jawbone",
+    "area": "The Arid Sea"
+  },
+  {
+    "region": "Far Shiverpeaks",
+    "amount": 1,
+    "item": "Chromatic Scale",
+    "area": "Ice Cliff Chasms"
+  },
+  {
+    "region": "Southern Shiverpeaks",
+    "amount": 3,
+    "item": "Mursaat Tokens",
+    "area": "Ice Floe"
+  },
+  {
+    "region": "Kourna",
+    "amount": 1,
+    "item": "Sentient Lodestone",
+    "area": "Bahdok Caverns"
+  },
+  {
+    "region": "Maguuma Jungle",
+    "amount": 3,
+    "item": "Jungle Troll Tusks",
+    "area": "Tangle Root"
+  },
+  {
+    "region": "Vabbi",
+    "amount": 1,
+    "item": "Sapphire Djinn Essence",
+    "area": "Resplendent Makuun"
+  },
+  {
+    "region": "Echovald Forest",
+    "amount": 1,
+    "item": "Stone Carving",
+    "area": "Arborstone"
+  },
+  {
+    "region": "Kryta",
+    "amount": 3,
+    "item": "Feathered Caromi Scalps",
+    "area": "North Kryta Province"
+  },
+  {
+    "region": "Vabbi",
+    "amount": 1,
+    "item": "Pillaged Goods",
+    "area": "Holdings of Chokhin"
+  },
+  {
+    "region": "Shing Jea Island",
+    "amount": 1,
+    "item": "Gold Crimson Skull Coin",
+    "area": "Haiju Lagoon"
+  },
+  {
+    "region": "Kaineng City",
+    "amount": 3,
+    "item": "Jade Bracelets",
+    "area": "Tahnnakai Temple"
+  },
+  {
+    "region": "Crystal Desert",
+    "amount": 2,
+    "item": "Minotaur Horns",
+    "area": "Prophet's Path"
+  },
+  {
+    "region": "Southern Shiverpeaks",
+    "amount": 2,
+    "item": "Frosted Griffon Wings",
+    "area": "Snake Dance"
+  },
+  {
+    "region": "Istan",
+    "amount": 2,
+    "item": "Silver Bullion Coins",
+    "area": "Mehtani Keys"
+  },
+  {
+    "region": "Echovald Forest",
+    "amount": 1,
+    "item": "Truffle",
+    "area": "Morostav Trail"
+  },
+  {
+    "region": "Tarnished Coast",
+    "amount": 3,
+    "item": "Skelk Claws",
+    "area": "Verdant Cascades"
+  },
+  {
+    "region": "Crystal Desert",
+    "amount": 2,
+    "item": "Dessicated Hydra Claws",
+    "area": "The Scar"
+  },
+  {
+    "region": "Southern Shiverpeaks",
+    "amount": 3,
+    "item": "Frigid Hearts",
+    "area": "Spearhead Peak"
+  },
+  {
+    "region": "Kaineng City",
+    "amount": 3,
+    "item": "Celestial Essences",
+    "area": "Nahpui Quarter"
+  },
+  {
+    "region": "Southern Shiverpeaks",
+    "amount": 1,
+    "item": "Phantom Residue",
+    "area": "Lornar's Pass"
+  },
+  {
+    "region": "Istan",
+    "amount": 1,
+    "item": "Drake Kabob",
+    "area": "Issnur Isles"
+  },
+  {
+    "region": "Echovald Forest",
+    "amount": 3,
+    "item": "Amber Chunks",
+    "area": "Ferndale"
+  },
+  {
+    "region": "Kryta",
+    "amount": 2,
+    "item": "Glowing Hearts",
+    "area": "Stingray Strand"
+  },
+  {
+    "region": "Tarnished Coast",
+    "amount": 5,
+    "item": "Saurian Bones",
+    "area": "Riven Earth"
+  },
+  {
+    "region": "Vabbi",
+    "amount": 2,
+    "item": "Behemoth Hides",
+    "area": "Wilderness of Bahdza"
+  },
+  {
+    "region": "The Desolation",
+    "amount": 1,
+    "item": "Luminous Stone",
+    "area": "Crystal Overlook"
+  },
+  {
+    "region": "Southern Shiverpeaks",
+    "amount": 3,
+    "item": "Intricate Grawl Necklaces",
+    "area": "Witman's Folly"
+  },
+  {
+    "region": "Kaineng City",
+    "amount": 3,
+    "item": "Jadeite Shards",
+    "area": "Shadow's Passage"
+  },
+  {
+    "region": "Kourna",
+    "amount": 1,
+    "item": "Gold Doubloon",
+    "area": "Barbarous Shore"
+  },
+  {
+    "region": "Crystal Desert",
+    "amount": 2,
+    "item": "Shriveled Eyes",
+    "area": "Skyward Reach"
+  },
+  {
+    "region": "Southern Shiverpeaks",
+    "amount": 2,
+    "item": "Icy Lodestones",
+    "area": "Icedome"
+  },
+  {
+    "region": "The Jade Sea",
+    "amount": 1,
+    "item": "Keen Oni Talon",
+    "area": "Silent Surf"
+  },
+  {
+    "region": "Kryta",
+    "amount": 2,
+    "item": "Hardened Humps",
+    "area": "Nebo Terrace"
+  },
+  {
+    "region": "Far Shiverpeaks",
+    "amount": 2,
+    "item": "Piles of Elemental Dust",
+    "area": "Drakkar Lake"
+  },
+  {
+    "region": "Shing Jea Island",
+    "amount": 3,
+    "item": "Naga Hides",
+    "area": "Panjiang Peninsula"
+  },
+  {
+    "region": "Northern Shiverpeaks",
+    "amount": 3,
+    "item": "Spiritwood Planks",
+    "area": "Griffon's Mouth"
+  },
+  {
+    "region": "Ascalon",
+    "amount": 1,
+    "item": "Stormy Eye",
+    "area": "Pockmark Flats"
+  },
+  {
+    "region": "Vabbi",
+    "amount": 3,
+    "item": "Skree Wings",
+    "area": "Forum Highlands"
+  },
+  {
+    "region": "Kaineng City",
+    "amount": 3,
+    "item": "Soul Stones",
+    "area": "Raisu Palace"
+  },
+  {
+    "region": "Kryta",
+    "amount": 1,
+    "item": "Spiked Crest",
+    "area": "Tears of the Fallen"
+  },
+  {
+    "region": "Echovald Forest",
+    "amount": 1,
+    "item": "Dragon Root",
+    "area": "Drazach Thicket"
+  },
+  {
+    "region": "Far Shiverpeaks",
+    "amount": 3,
+    "item": "Berserker Horns",
+    "area": "Jaga Moraine"
+  },
+  {
+    "region": "Maguuma Jungle",
+    "amount": 1,
+    "item": "Behemoth Jaw",
+    "area": "Mamnoon Lagoon"
+  },
+  {
+    "region": "Istan",
+    "amount": 1,
+    "item": "Bowl of Skalefin Soup",
+    "area": "Zehlon Reach"
+  },
+  {
+    "region": "Kryta",
+    "amount": 2,
+    "item": "Forest Minotaur Horns",
+    "area": "Kessex Peak"
+  },
+  {
+    "region": "Kaineng City",
+    "amount": 3,
+    "item": "Putrid Cysts",
+    "area": "Sunjiang District"
+  },
+  {
+    "region": "Crystal Desert",
+    "amount": 2,
+    "item": "Jade Mandibles",
+    "area": "Salt Flats"
+  },
+  {
+    "region": "Maguuma Jungle",
+    "amount": 2,
+    "item": "Maguuma Manes",
+    "area": "Silverwood"
+  },
+  {
+    "region": "Echovald Forest",
+    "amount": 1,
+    "item": "Skull Juju",
+    "area": "The Eternal Grove"
+  },
+  {
+    "region": "Istan",
+    "amount": 3,
+    "item": "Mandragor Swamproots",
+    "area": "Lahtenda Bog"
+  },
+  {
+    "region": "Vabbi",
+    "amount": 1,
+    "item": "Bottle of Vabbian Wine",
+    "area": "Vehtendi Valley"
+  },
+  {
+    "region": "Tarnished Coast",
+    "amount": 2,
+    "item": "Weaver Legs",
+    "area": "Magus Stones"
+  },
+  {
+    "region": "Crystal Desert",
+    "amount": 1,
+    "item": "Topaz Crest",
+    "area": "Diviner's Ascent"
+  },
+  {
+    "region": "Kaineng City",
+    "amount": 2,
+    "item": "Rot Wallow Tusks",
+    "area": "Pongmei Valley"
+  },
+  {
+    "region": "Northern Shiverpeaks",
+    "amount": 2,
+    "item": "Frostfire Fangs",
+    "area": "Anvil Rock"
+  },
+  {
+    "region": "The Desolation",
+    "amount": 1,
+    "item": "Demonic Relic",
+    "area": "The Ruptured Heart"
+  },
+  {
+    "region": "Kryta",
+    "amount": 2,
+    "item": "Abnormal Seeds",
+    "area": "Talmark Wilderness"
+  },
+  {
+    "region": "Vabbi",
+    "amount": 1,
+    "item": "Diamond Djinn Essence",
+    "area": "The Hidden City of Ahdashim"
+  },
+  {
+    "region": "Crystal Desert",
+    "amount": 2,
+    "item": "Forgotten Seals",
+    "area": "Vulture Drifts"
+  },
+  {
+    "region": "Shing Jea Island",
+    "amount": 5,
+    "item": "Copper Crimson Skull Coins",
+    "area": "Kinya Province"
+  },
+  {
+    "region": "Maguuma Jungle",
+    "amount": 3,
+    "item": "Mossy Mandibles",
+    "area": "Ettin's Back"
+  },
+  {
+    "region": "Southern Shiverpeaks",
+    "amount": 2,
+    "item": "Enslavement Stones",
+    "area": "Grenth's Footprint"
+  },
+  {
+    "region": "Kourna",
+    "amount": 5,
+    "item": "Elonian Leather Squares",
+    "area": "Jahai Bluffs"
+  },
+  {
+    "region": "Vabbi",
+    "amount": 2,
+    "item": "Cobalt Talons",
+    "area": "Vehjin Mines"
+  },
+  {
+    "region": "Maguuma Jungle",
+    "amount": 1,
+    "item": "Maguuma Spider Web",
+    "area": "Reed Bog"
+  },
+  {
+    "region": "Shing Jea Island",
+    "amount": 5,
+    "item": "Forgotten Trinket Boxes",
+    "area": "Minister Cho's Estate"
+  },
+  {
+    "region": "Northern Shiverpeaks",
+    "amount": 3,
+    "item": "Icy Humps",
+    "area": "Iron Horse Mine"
+  },
+  {
+    "region": "The Desolation",
+    "amount": 1,
+    "item": "Sandblasted Lodestone",
+    "area": "The Shattered Ravines"
+  },
+  {
+    "region": "The Jade Sea",
+    "amount": 3,
+    "item": "Black Pearls",
+    "area": "Archipelagos"
+  },
+  {
+    "region": "Kourna",
+    "amount": 3,
+    "item": "Insect Carapaces",
+    "area": "Marga Coast"
+  },
+  {
+    "region": "Kryta",
+    "amount": 3,
+    "item": "Mergoyle Skulls",
+    "area": "Watchtower Coast"
+  },
+  {
+    "region": "Kryta",
+    "amount": 3,
+    "item": "Decayed Orr Emblems",
+    "area": "Cursed Lands"
+  },
+  {
+    "region": "Echovald Forest",
+    "amount": 5,
+    "item": "Tempered Glass Vials",
+    "area": "Mourning Veil Falls"
+  },
+  {
+    "region": "Ascalon",
+    "amount": 3,
+    "item": "Scorched Lodestones",
+    "area": "Old Ascalon"
+  },
+  {
+    "region": "The Desolation",
+    "amount": 1,
+    "item": "Water Djinn Essence",
+    "area": "Turai's Procession"
+  },
+  {
+    "region": "The Jade Sea",
+    "amount": 1,
+    "item": "Guardian Moss",
+    "area": "Maishang Hills"
+  },
+  {
+    "region": "Kourna",
+    "amount": 6,
+    "item": "Dwarven Ales",
+    "area": "The Floodplain of Mahnkelon"
+  },
+  {
+    "region": "Tarnished Coast",
+    "amount": 2,
+    "item": "Amphibian Tongues",
+    "area": "Sparkfly Swamp"
+  },
+  {
+    "region": "Southern Shiverpeaks",
+    "amount": 2,
+    "item": "Alpine Seeds",
+    "area": "Frozen Forest"
+  },
+  {
+    "region": "Maguuma Jungle",
+    "amount": 2,
+    "item": "Tangled Seeds",
+    "area": "Dry Top"
+  },
+  {
+    "region": "Shing Jea Island",
+    "amount": 3,
+    "item": "Stolen Supplies",
+    "area": "Jaya Bluffs"
+  },
+  {
+    "region": "Istan",
+    "amount": 1,
+    "item": "Pahnai Salad",
+    "area": "Plains of Jarin"
+  },
+  {
+    "region": "Kaineng City",
+    "amount": 3,
+    "item": "Vermin Hides",
+    "area": "Xaquang Skyway"
+  },
+  {
+    "region": "Vabbi",
+    "amount": 1,
+    "item": "Roaring Ether Heart",
+    "area": "The Mirror of Lyss"
+  },
+  {
+    "region": "Ascalon",
+    "amount": 3,
+    "item": "Leathery Claws",
+    "area": "Ascalon Foothills"
+  },
+  {
+    "region": "The Jade Sea",
+    "amount": 1,
+    "item": "Azure Crest",
+    "area": "Unwaking Waters"
+  },
+  {
+    "region": "Far Shiverpeaks",
+    "amount": 1,
+    "item": "Jotun Pelt",
+    "area": "Bjora Marches"
+  },
+  {
+    "region": "Kourna",
+    "amount": 2,
+    "item": "Heket Tongues",
+    "area": "Dejarin Estate"
+  },
+  {
+    "region": "Southern Shiverpeaks",
+    "amount": 5,
+    "item": "Mountain Troll Tusks",
+    "area": "Talus Chute"
+  },
+  {
+    "region": "Kaineng City",
+    "amount": 3,
+    "item": "Vials of Ink",
+    "area": "Shenzun Tunnels"
+  },
+  {
+    "region": "Kourna",
+    "amount": 3,
+    "item": "Kournan Pendants",
+    "area": "Gandara the Moon Fortress"
+  },
+  {
+    "region": "Ascalon",
+    "amount": 3,
+    "item": "Singed Gargoyle Skulls",
+    "area": "Diessa Lowlands"
+  },
+  {
+    "region": "Echovald Forest",
+    "amount": 3,
+    "item": "Dredge Incisors",
+    "area": "Melandru's Hope"
+  },
+  {
+    "region": "Southern Shiverpeaks",
+    "amount": 3,
+    "item": "Stone Summit Badges",
+    "area": "Tasca's Demise"
+  },
+  {
+    "region": "Tarnished Coast",
+    "amount": 3,
+    "item": "Krait Skins",
+    "area": "Arbor Bay"
+  },
+  {
+    "region": "The Desolation",
+    "amount": 2,
+    "item": "Inscribed Shards",
+    "area": "Joko's Domain"
+  },
+  {
+    "region": "Shing Jea Island",
+    "amount": 3,
+    "item": "Feathered Scalps",
+    "area": "Sunqua Vale"
+  },
+  {
+    "region": "The Desolation",
+    "amount": 3,
+    "item": "Mummy Wrappings",
+    "area": "The Sulfurous Wastes"
+  },
+  {
+    "region": "Kryta",
+    "amount": 2,
+    "item": "Shadowy Remnants",
+    "area": "The Black Curtain"
+  },
+  {
+    "region": "Kaineng City",
+    "amount": 3,
+    "item": "Ancient Kappa Shells",
+    "area": "The Undercity"
+  },
+  {
+    "region": "Vabbi",
+    "amount": 1,
+    "item": "Geode",
+    "area": "Yatendi Canyons"
+  },
+  {
+    "region": "Charr Homelands",
+    "amount": 2,
+    "item": "Fibrous Mandragor Roots",
+    "area": "Grothmar Wardowns"
+  },
+  {
+    "region": "Ascalon",
+    "amount": 3,
+    "item": "Gruesome Ribcages",
+    "area": "Dragon's Gullet"
+  },
+  {
+    "region": "The Jade Sea",
+    "amount": 2,
+    "item": "Kraken Eyes",
+    "area": "Boreas Seabed"
+  },
+  {
+    "region": "Kryta",
+    "amount": 3,
+    "item": "Bog Skale Fins",
+    "area": "Scoundrel's Rise"
+  },
+  {
+    "region": "Kourna",
+    "amount": 2,
+    "item": "Sentient Spores",
+    "area": "Sunward Marches"
+  },
+  {
+    "region": "Maguuma Jungle",
+    "amount": 2,
+    "item": "Ancient Eyes",
+    "area": "Sage Lands"
+  },
+  {
+    "region": "Istan",
+    "amount": 3,
+    "item": "Copper Shillings",
+    "area": "Cliffs of Dohjok"
+  },
+  {
+    "region": "Far Shiverpeaks",
+    "amount": 3,
+    "item": "Frigid Mandragor Husks",
+    "area": "Norrhart Domains"
+  },
+  {
+    "region": "Northern Shiverpeaks",
+    "amount": 3,
+    "item": "Bolts of Linen",
+    "area": "Traveler's Vale"
+  },
+  {
+    "region": "Ascalon",
+    "amount": 3,
+    "item": "Charr Carvings",
+    "area": "Flame Temple Corridor"
+  }
+]
