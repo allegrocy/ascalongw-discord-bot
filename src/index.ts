@@ -1,9 +1,9 @@
-import commando from 'discord.js-commando';
+import { CommandoClient } from 'discord.js-commando';
 
 import path from 'path';
 import config from '../config.json';
 
-const client = new commando.Client({
+const client = new CommandoClient({
     commandPrefix: config.prefix,
     owner: config.owners
 });

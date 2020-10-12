@@ -20,8 +20,11 @@
         "dev:debug": "nodemon --inspect src/index.ts"
     },
     "dependencies": {
+        "@types/atob": "^2.1.2",
         "@types/node": "^14.11.8",
         "@types/ws": "^7.2.7",
+        "atob": "^2.1.2",
+        "canvas": "^2.6.1",
         "date-fns": "^2.16.1",
         "discord.js": "^12.3.1",
         "discord.js-commando": "github:discordjs/Commando"
