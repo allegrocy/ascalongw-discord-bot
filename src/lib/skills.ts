@@ -1,5 +1,3 @@
-import atob from 'atob';
-
 enum Profession {
 	None,
 	Warrior,
