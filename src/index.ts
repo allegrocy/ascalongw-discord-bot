@@ -26,7 +26,10 @@ client.registry
     .registerDefaultCommands({
         commandState: false
     })
-    .registerCommandsIn(path.join(__dirname, 'commands'));
+    .registerCommandsIn({
+        dirname: path.join(__dirname, 'commands'),
+        filter: /(.+)\.(js|ts)$/,
+    });
 
 // Bot token should always be placed in config.json and never committed to repo
 client.login(config.token);
