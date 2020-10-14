@@ -1,4 +1,3 @@
-import { intervalToDuration } from 'date-fns';
 import { Command, CommandoClient, CommandoMessage } from 'discord.js-commando';
 
 import {
@@ -6,7 +5,7 @@ import {
     getActivityMeta,
 } from '../../lib/activities';
 
-export = class NicholasTheTraveler extends Command {
+export = class NicholasTheTravelerCommand extends Command {
     constructor(client: CommandoClient) {
         super(client, {
             name: 'nicholas-the-traveler',

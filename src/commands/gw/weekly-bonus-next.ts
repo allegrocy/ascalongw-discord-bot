@@ -1,3 +1,4 @@
+import { addDays } from 'date-fns';
 import { Command, CommandoClient, CommandoMessage } from 'discord.js-commando';
 
 import {
@@ -5,13 +6,13 @@ import {
     getActivityMeta,
 } from '../../lib/activities';
 
-export = class weeklyBonusCommand extends Command {
+export = class weeklyBonusNextCommand extends Command {
     constructor(client: CommandoClient) {
         super(client, {
-            name: 'weekly-bonus',
-            aliases: ['bonus'],
+            name: 'weekly-bonus-next',
+            aliases: ['bonusnext'],
             group: 'gw',
-            memberName: 'bonus',
+            memberName: 'bonusnext',
             description: 'Displays current weekly bonuses information with a countdown.',
             details: ''
         });
@@ -20,15 +21,16 @@ export = class weeklyBonusCommand extends Command {
     async run(message: CommandoMessage) {
         const { weeklyCountdown } = getActivityMeta('pve-bonus');
         const now = new Date();
+        const nextWeek = addDays(now, 7);
 
-        const pveBonus = getActivity('pve-bonus', now);
-        const pvpBonus = getActivity('pvp-bonus', now);
+        const pveBonus = getActivity('pve-bonus', nextWeek);
+        const pvpBonus = getActivity('pvp-bonus', nextWeek);
 
         const output = [
-            '__This week:__',
+            '__Next week:__',
             `PvE bonuses: ${pveBonus['name']} -- **${pveBonus['info']}**`,
             `PvP bonuses: ${pvpBonus['name']} -- **${pvpBonus['info']}**`,
-            `Weekly bonuses will expire in ${weeklyCountdown}!`,
+            `This week's bonuses will expire in ${weeklyCountdown}!`,
         ];
 
         return message.say(output);

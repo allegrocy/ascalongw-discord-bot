@@ -1,4 +1,4 @@
-import { intervalToDuration } from 'date-fns';
+import { addDays } from 'date-fns';
 import { Command, CommandoClient, CommandoMessage } from 'discord.js-commando';
 
 import {
@@ -6,14 +6,14 @@ import {
     getActivityMeta,
 } from '../../lib/activities';
 
-export = class ZaishenQuestCommand extends Command {
+export = class ZaishenQuestNextCommand extends Command {
     constructor(client: CommandoClient) {
         super(client, {
-            name: 'zaishen-quest',
-            aliases: ['zq'],
+            name: 'zaishen-quest-next',
+            aliases: ['zqnext'],
             group: 'gw',
-            memberName: 'zq',
-            description: 'Displays current Zaishen Quest Information with a countdown',
+            memberName: 'zqnext',
+            description: 'Displays tomorrow\'s Zaishen Quest Information with a countdown',
             details: ''
         });
     }
@@ -21,6 +21,7 @@ export = class ZaishenQuestCommand extends Command {
     async run(message: CommandoMessage) {
         const { dailyCountdown } = getActivityMeta('zaishen-mission');
         const now = new Date();
+        const nextDay = addDays(now, 1);
 
         const zaishenQuestsText = (date: Date) => [
             `Zaishen Mission: **${getActivity('zaishen-mission', date)}**`,
@@ -30,9 +31,9 @@ export = class ZaishenQuestCommand extends Command {
         ];
 
         return message.say([
-            '__Today\'s Zaishen Quests:__',
-            ...zaishenQuestsText(now),
-            `Zaishen Daily Quest will reset in ${dailyCountdown}`,
+            '__Next week\'s Zaishen Quests:__',
+            ...zaishenQuestsText(nextDay),
+            `Today's Zaishen Quests will reset in ${dailyCountdown}`,
         ]);
     }
 }
