@@ -10,7 +10,7 @@ export = class NicholasTheTraveler extends Command {
     constructor(client: CommandoClient) {
         super(client, {
             name: 'nicholas-the-traveler',
-            aliases: ['nicholas-the-traveler', 'nick'],
+            aliases: ['nick'],
             group: 'gw',
             memberName: 'nick',
             description: 'Displays current Nicholas the Traveler information with a countdown.',

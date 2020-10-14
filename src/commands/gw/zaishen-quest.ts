@@ -10,7 +10,7 @@ export = class SkillbarCommand extends Command {
     constructor(client: CommandoClient) {
         super(client, {
             name: 'zaishen-quest',
-            aliases: ['zaishen-quest', 'zq'],
+            aliases: ['zq'],
             group: 'gw',
             memberName: 'zq',
             description: 'Displays current Zaishen Quest Information with a countdown',

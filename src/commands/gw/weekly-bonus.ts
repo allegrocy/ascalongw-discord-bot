@@ -10,7 +10,7 @@ export = class weeklyBonus extends Command {
     constructor(client: CommandoClient) {
         super(client, {
             name: 'weekly-bonus',
-            aliases: ['weekly-bonus', 'bonus'],
+            aliases: ['bonus'],
             group: 'gw',
             memberName: 'bonus',
             description: 'Displays current weekly bonuses information with a countdown.',
