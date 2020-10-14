@@ -19,25 +19,16 @@ export = class NicholasTheTraveler extends Command {
     }
 
     async run(message: CommandoMessage) {
-        const { endDate } = getActivityMeta('nicholas-the-traveler');
+        const { weeklyCountdown } = getActivityMeta('nicholas-the-traveler');
         const now = new Date();
 
         const { region, amount, item, area } = getActivity('nicholas-the-traveler', now);
-
-        const { days, hours, minutes, seconds } = intervalToDuration({
-            start: now,
-            end: endDate,
-        });
-
-        const resetOutput = [hours, minutes, seconds]
-            .map(v => String(v).padStart(2, '0'))
-            .join(':');
 
         const output = [
             '__This week:__',
             `Nicholas the Traveler is collecting **${amount} ${item}** ` + 
             `per present at **${area}** in ${region}.`,
-            `Moving off in **${days} days** and **${resetOutput}**!`,
+            `Moving off in ${weeklyCountdown}!`,
         ];
 
         return message.say(output);

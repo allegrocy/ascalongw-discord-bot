@@ -16,6 +16,7 @@ import zaishenBounty from './activities/zaishen-bounty.json';
 import zaishenCombat from './activities/zaishen-combat.json';
 import zaishenMission from './activities/zaishen-mission.json';
 import zaishenVanquish from './activities/zaishen-vanquish.json';
+import { intervalToDuration } from 'date-fns';
 
 const ACTIVITIES = {
     'nicholas-sandford': {
@@ -80,13 +81,18 @@ export function getActivityMeta<T extends keyof typeof ACTIVITIES>(type: T, date
     activity: typeof ACTIVITIES[T]['data'][0],
     startDate: Date,
     endDate: Date,
+    weeklyCountdown: String,
+    dailyCountdown: String,
 } {
     const { data, startDate, period } = ACTIVITIES[type];
     const index = getIndex(data, startDate, period, date);
+    const endDate = getActivityEndDate(type, date);
     return {
         activity: data[index],
         startDate: getActivityStartDate(type, date),
         endDate: getActivityEndDate(type, date),
+        weeklyCountdown: getWeeklyCountdown(endDate),
+        dailyCountdown: getDailyCountdown(endDate),
     };
 }
 
@@ -110,4 +116,25 @@ function getActivityEndDate<T extends keyof typeof ACTIVITIES>(type: T, date: Da
     const elapsedTime = date.getTime() - startDate.getTime();
     const timestamp = Math.floor(elapsedTime / period) * period + startDate.getTime() + period;
     return new Date(timestamp);
+}
+
+function getWeeklyCountdown(endDate: Date) {
+    const now = new Date();
+    const { days } = intervalToDuration({
+        start: now,
+        end: endDate,
+    });
+    return `**${days} days** and ${getDailyCountdown(endDate)}`;
+}
+
+function getDailyCountdown(endDate: Date) {
+    const now = new Date();
+    const { hours, minutes, seconds } = intervalToDuration({
+        start: now,
+        end: endDate,
+    });
+    const resetOutput = [hours, minutes, seconds]
+        .map(v => String(v).padStart(2, '0'))
+        .join(':');
+    return `**${resetOutput}**`;
 }
