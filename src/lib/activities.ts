@@ -81,8 +81,8 @@ export function getActivityMeta<T extends keyof typeof ACTIVITIES>(type: T, date
     activity: typeof ACTIVITIES[T]['data'][0],
     startDate: Date,
     endDate: Date,
-    weeklyCountdown: String,
-    dailyCountdown: String,
+    weeklyCountdown: string,
+    dailyCountdown: string,
 } {
     const { data, startDate, period } = ACTIVITIES[type];
     const index = getIndex(data, startDate, period, date);
@@ -124,7 +124,7 @@ function getWeeklyCountdown(endDate: Date) {
         start: now,
         end: endDate,
     });
-    return `**${days} days** and ${getDailyCountdown(endDate)}`;
+    return `${days} days, ${getDailyCountdown(endDate)}`;
 }
 
 function getDailyCountdown(endDate: Date) {
@@ -133,8 +133,5 @@ function getDailyCountdown(endDate: Date) {
         start: now,
         end: endDate,
     });
-    const resetOutput = [hours, minutes, seconds]
-        .map(v => String(v).padStart(2, '0'))
-        .join(':');
-    return `**${resetOutput}**`;
+    return `${hours}h ${minutes}m`;
 }
