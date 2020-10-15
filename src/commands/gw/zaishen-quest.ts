@@ -8,13 +8,23 @@ import {
 } from '../../lib/activities';
 
 /**
- * A blank field to create spacing between embed fields.
+ * An inline blank field to create spacing between embed fields.
+ * The markdown syntax is necessary because Discord ignores whitespace.
+ */
+const INLINEBLANKFIELD = {
+    name: '**    **',
+    value: '**    **',
+    inline: true,
+};
+
+/**
+ * A non-inline blank field to create spacing between embed fields.
  * The markdown syntax is necessary because Discord ignores whitespace.
  */
 const BLANKFIELD = {
     name: '**    **',
     value: '**    **',
-    inline: true,
+    inline: false,
 };
 
 export = class ZaishenQuestCommand extends Command {
@@ -36,36 +46,38 @@ export = class ZaishenQuestCommand extends Command {
         const output = new Discord.MessageEmbed()
             .setColor('#0099ff')
             .setTitle('Zaishen Quests')
+            .setDescription(`_${dailyCountdown}_ left`)
             .setURL('https://wiki.guildwars.com/wiki/Zaishen_Challenge_Quest')
             .addFields(
                 {
                     name: `Zaishen Mission`,
-                    value: 
-                        `${getActivity('zaishen-mission', now)}\n` + 
-                        `_${getActivityMeta('zaishen-mission', now)['dailyCountdown']} left_`,
+                    value: [
+                        `${getActivity('zaishen-mission', now)}`,
+                    ],
+                    inline: true,
+                },
+                INLINEBLANKFIELD,
+                {
+                    name: `Zaishen Bounty`,
+                    value: [
+                        `${getActivity('zaishen-bounty', now)}`, 
+                    ],
                     inline: true,
                 },
                 BLANKFIELD,
-                {
-                    name: `Zaishen Mission`,
-                    value: 
-                        `${getActivity('zaishen-bounty', now)}\n` + 
-                        `_${getActivityMeta('zaishen-bounty', now)['dailyCountdown']} left_`,
-                    inline: true,
-                },
                 {
                     name: `Zaishen Vanquish`,
-                    value: 
-                        `${getActivity('zaishen-vanquish', now)}\n` + 
-                        `_${getActivityMeta('zaishen-vanquish', now)['dailyCountdown']} left_`,
+                    value: [
+                        `${getActivity('zaishen-vanquish', now)}`,
+                    ],
                     inline: true,
                 },
-                BLANKFIELD,
+                INLINEBLANKFIELD,
                 {
                     name: `Zaishen Combat`,
-                    value: 
-                        `${getActivity('zaishen-combat', now)}\n` + 
-                        `_${getActivityMeta('zaishen-combat', now)['dailyCountdown']} left_`,
+                    value: [
+                        `${getActivity('zaishen-combat', now)}`, 
+                    ],
                     inline: true,
                 },
             );
