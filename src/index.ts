@@ -24,6 +24,7 @@ client.registry
     .registerDefaultTypes()
     .registerDefaultGroups()
     .registerDefaultCommands({
+        eval: false,
         commandState: false
     })
     .registerCommandsIn({
