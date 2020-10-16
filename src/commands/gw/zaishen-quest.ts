@@ -43,6 +43,13 @@ export = class ZaishenQuestCommand extends Command {
         const { dailyCountdown } = getActivityMeta('zaishen-mission');
         const now = new Date();
 
+        /**
+         * Get the emoji which the bot has access to (on another server) using the emoji's ID.
+         * Right click on the emoji and copy the link.
+         * The ID is the name of the image file without the extension.
+         */
+        const copperCoin = this.client.emojis.cache.get('766526001344806934');
+
         const output = new Discord.MessageEmbed()
             .setColor('#0099ff')
             .setTitle('Zaishen Quests')
@@ -53,6 +60,7 @@ export = class ZaishenQuestCommand extends Command {
                     name: `Zaishen Mission`,
                     value: [
                         `${getActivity('zaishen-mission', now)}`,
+                        `100 ${copperCoin}`,
                     ],
                     inline: true,
                 },
@@ -60,7 +68,8 @@ export = class ZaishenQuestCommand extends Command {
                 {
                     name: `Zaishen Bounty`,
                     value: [
-                        `${getActivity('zaishen-bounty', now)}`, 
+                        `${getActivity('zaishen-bounty', now)}`,
+                        `105 ${copperCoin}`,
                     ],
                     inline: true,
                 },
@@ -69,6 +78,7 @@ export = class ZaishenQuestCommand extends Command {
                     name: `Zaishen Vanquish`,
                     value: [
                         `${getActivity('zaishen-vanquish', now)}`,
+                        `175 ${copperCoin}`,
                     ],
                     inline: true,
                 },
@@ -77,6 +87,7 @@ export = class ZaishenQuestCommand extends Command {
                     name: `Zaishen Combat`,
                     value: [
                         `${getActivity('zaishen-combat', now)}`, 
+                        `150 ${copperCoin}`,
                     ],
                     inline: true,
                 },

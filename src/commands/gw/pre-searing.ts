@@ -35,7 +35,7 @@ export = class PreSearingCommand extends Command {
         const output = new Discord.MessageEmbed()
             .setColor('#0099ff')
             .setTitle('Pre Searing Quests')
-            .setURL('https://wiki.guildwars.com/wiki/Daily_activities/')
+            .setURL('https://wiki.guildwars.com/wiki/Daily_activities')
             .addFields(
                 {
                     name: `Vanguard Quest`,
