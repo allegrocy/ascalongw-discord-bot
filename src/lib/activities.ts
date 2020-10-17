@@ -18,7 +18,7 @@ import zaishenMission from './activities/zaishen-mission.json';
 import zaishenVanquish from './activities/zaishen-vanquish.json';
 import { intervalToDuration } from 'date-fns';
 
-const ACTIVITIES = {
+export const ACTIVITIES = {
     'nicholas-sandford': {
         data: nicholasSandford,
         startDate: new Date(1239260400000),
