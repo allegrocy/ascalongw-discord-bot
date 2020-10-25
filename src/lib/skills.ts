@@ -60,6 +60,9 @@ export enum Attribute {
     CriticalStrikes, SpawningPower,
     SpearMastery, Command, Motivation, Leadership,
     ScytheMastery, WindPrayers, EarthPrayers, Mysticism,
+    NornRank = 214, EbonVanguardRank, DeldrimorRank, AsuraRank,
+    LightbringerRank = 235, SunspearRank = 238,
+    LuxonRank = 249, KurzickRank,
 }
 
 const ATTRIBUTE_NAMES: Record<Attribute, string> = {
@@ -105,6 +108,14 @@ const ATTRIBUTE_NAMES: Record<Attribute, string> = {
     [Attribute.WindPrayers]: 'Wind Prayers',
     [Attribute.EarthPrayers]: 'Earth Prayers',
     [Attribute.Mysticism]: 'Mysticism',
+    [Attribute.NornRank]: 'Norn Rank',
+    [Attribute.EbonVanguardRank]: 'Ebon Vanguard Rank',
+    [Attribute.DeldrimorRank]: 'Deldrimor Rank',
+    [Attribute.AsuraRank]: 'Asura Rank',
+    [Attribute.LightbringerRank]: 'Lightbringer Rank',
+    [Attribute.SunspearRank]: 'Sunspear Rank',
+    [Attribute.LuxonRank]: 'Luxon Rank',
+    [Attribute.KurzickRank]: 'Kurzick Rank',
 };
 
 export function getAttributeName<T extends keyof typeof ATTRIBUTE_NAMES>(attribute: T): typeof ATTRIBUTE_NAMES[T] {
@@ -118,6 +129,7 @@ export interface Skillbar {
     secondary: Profession,
     attributes: Partial<Record<Attribute, number>>,
     skills: number[];
+    template: string;
 }
 
 const _base64 = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
@@ -160,6 +172,7 @@ export function decodeTemplate(template: string): Skillbar | null {
         secondary,
         attributes,
         skills,
+        template,
     };
 }
 
