@@ -40,6 +40,8 @@ if File.file?("#{File.dirname(__FILE__)}/.env.rb") then
   require "#{File.dirname(__FILE__)}/.env.rb"
 end
 
+puts "AscalonGW token is #{ENV["ASCALONGW-TOKEN"]}"
+
 server_config = {
 	'is_local'=>0,
 	'is_production'=>0,
@@ -52,7 +54,7 @@ server_config = {
 	'deployment_date'=>Time.now.strftime("%Y%m%d%H%M%S"),
   'repository_code_folder'=>'/home/vagrant/ascalongw-discord-bot',
   'prefix' => '-',
-  'token' =>'NzY5NjQ3Nzk1MjEyMjU1MjM1.X5SEXQ.7cvmjAXws9mxigghtb4EHeD7AF0',
+  'token' =>ENV["ASCALONGW-TOKEN"] || 'no-token',
   'owners' => ['379748158978392065'],
   'channels' => {
     'giveaways': '387595414259367939',

@@ -1,8 +1,6 @@
 #!/bin/bash
 PROJECT_CODE_FOLDER="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
-
 NODEJS_VERSION="15"
-
 printf "${RED}*** Project code folder is ${PROJECT_CODE_FOLDER} ***${NC}\n";
 SERVER_TIMEZONE="UTC"
 if [ -f /sys/hypervisor/uuid ] && [ `head -c 3 /sys/hypervisor/uuid` == ec2 ]; then
