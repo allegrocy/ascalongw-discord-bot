@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "outDir": "dist",
+    "allowJs": true,
     "target": "ES2015",
     "module": "commonjs",
     "strict": true,
