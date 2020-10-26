@@ -25,5 +25,5 @@ Ensure `ENV["ASCALONGW-TOKEN"]` is a valid token for the bot, or define `ENV["AS
 
 ## Production deployment
 
-Jon has SHH keys for production server, but its basically the same as above with a different machine name.
-Reve has the AscalonGW bot token, ask him for it before deploying
+`Jon [SNOW]#1816` has SHH keys for production server, but its basically the same as above with a different machine name.
+`rene#0683` has the AscalonGW bot token, ask him for it before deploying
