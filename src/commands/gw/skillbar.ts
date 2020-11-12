@@ -98,7 +98,7 @@ export default class SkillbarCommand extends Command {
     async onReaction(reaction: any, user:any) {
       let message = reaction.message;
       var err = function(msg:string) {
-        message.reply(msg);
+        //message.reply(msg);
       }
       
       if(message.author.id != message.client.user.id)
