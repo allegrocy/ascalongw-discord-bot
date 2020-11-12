@@ -33,7 +33,7 @@ export default class MaterialsCommand extends Command {
       if(!json || !json.buy)
         return ongoing_message.edit(`Sorry, something went wrong fetching results from ${trade_website}`);
       
-      let abbrPrice = function(price,dp) {
+      let abbrPrice = function(price:number,dp:number) {
         let as_k = 0;
         if(price > 999) {
           as_k = 1;

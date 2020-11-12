@@ -9,7 +9,7 @@ import {
     Skillbar,
 } from '../../lib/skills';
 import path = require('path');
-import { MessageAttachment } from 'discord.js';
+import { MessageAttachment, TextChannel, MessageReaction } from 'discord.js';
 import skills from '../../../assets/skills.json';
 
 const IMAGE_SIZE = 64;
@@ -51,7 +51,7 @@ const DIGITS = [
 ];
 
 // @todo move this somewhere sensible
-const assets = path.join(__dirname, '../../../assets');
+const assets = path.join(__dirname, '../../../../assets');
 
 export default class SkillbarCommand extends Command {
     constructor(client: CommandoClient) {
@@ -72,9 +72,52 @@ export default class SkillbarCommand extends Command {
                 }
             ]
         });
+        client.on('messageReactionAdd',this.onReaction);
+        client.on('messageReactionRemove',this.onReaction);
+        // https://github.com/AnIdiotsGuide/discordjs-bot-guide/blob/master/coding-guides/raw-events.md
+        client.on('raw', this.onRawPacket);
     }
-
-    async run(message: CommandoMessage, args: {
+    async onRawPacket(packet: any) {
+      const client = <any>this;
+      if (!['MESSAGE_REACTION_ADD', 'MESSAGE_REACTION_REMOVE'].includes(packet.t)) 
+        return;
+      const channel = await client.channels.fetch(packet.d.channel_id) as TextChannel;
+      if (channel.messages.cache.has(packet.d.message_id)) 
+        return;
+      const message = await channel.messages.fetch(packet.d.message_id);
+      const emoji = packet.d.emoji.id ? `${packet.d.emoji.name}:${packet.d.emoji.id}` : packet.d.emoji.name;
+      const reaction = message.reactions.resolve(emoji) as MessageReaction;
+      const user = await client.users.fetch(packet.d.user_id);
+      //if (reaction) 
+      //  reaction.users.set(packet.d.user_id, user);
+      if (packet.t === 'MESSAGE_REACTION_ADD')
+        client.emit('messageReactionAdd', reaction, user);
+      if (packet.t === 'MESSAGE_REACTION_REMOVE')
+        client.emit('messageReactionRemove', reaction, user);
+    }
+    async onReaction(reaction: any, user:any) {
+      let message = reaction.message;
+      var err = function(msg:string) {
+        message.reply(msg);
+      }
+      
+      if(message.author.id != message.client.user.id)
+        return err('Not our message.'); // Not our message.
+        
+      let template = message.content.match(/-- `([^`]+)` --/)[1];
+      if(!template)
+        return err('Failed to find a template code');
+      
+      const skillbar = decodeTemplate(template);
+      if (!skillbar) 
+        return err('Invalid skillbar'); 
+        
+      const index = DIGITS.indexOf(reaction.emoji.name);
+      if(index == -1)
+        return err('Not a valid reaction');
+      message.edit(buildMessage(skillbar, index - 1));
+    }
+    async run(message: any, args: {
         template: string,
     }) {
         const skillbar = decodeTemplate(args.template);
@@ -90,22 +133,11 @@ export default class SkillbarCommand extends Command {
         images.map((image, index) => ctx.drawImage(image, index * IMAGE_SIZE, 0, IMAGE_SIZE, IMAGE_SIZE));
 
         const attachment = new MessageAttachment(canvas.toBuffer(), `${args.template}.png`);
-
         const result = await message.say(buildMessage(skillbar, 0), attachment);
-
         const lastMessage = Array.isArray(result) ? result[result.length - 1] : result;
-
         for (let i = 0; i < skillbar.skills.length; i++) {
-            await lastMessage.react(DIGITS[i + 1]);
+          await lastMessage.react(DIGITS[i + 1]);
         }
-
-        lastMessage.createReactionCollector(
-            reaction => DIGITS.includes(reaction.emoji.name)
-        ).on('collect', (reaction, user) => {
-            const index = DIGITS.indexOf(reaction.emoji.name);
-            lastMessage.edit(buildMessage(skillbar, index - 1));
-            reaction.users.remove(user.id);
-        });
 
         return result;
     }

@@ -1,6 +1,6 @@
 import { Command, CommandoClient, CommandoMessage } from 'discord.js-commando';
 const axios = require('axios');
-require('../../lib/Date.class.js');
+require(__dirname + '/../../lib/Date.class.js');
 
 
 const trade_website = 'https://kamadan.gwtoolbox.com';
