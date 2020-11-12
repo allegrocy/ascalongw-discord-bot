@@ -104,11 +104,11 @@ export default class SkillbarCommand extends Command {
       if(message.author.id != message.client.user.id)
         return err('Not our message.'); // Not our message.
         
-      let template = message.content.match(/-- `([^`]+)` --/)[1];
+      let template = message.content.match(/-- `([^`]+)` --/);
       if(!template)
         return err('Failed to find a template code');
       
-      const skillbar = decodeTemplate(template);
+      const skillbar = decodeTemplate(template[1]);
       if (!skillbar) 
         return err('Invalid skillbar'); 
         
