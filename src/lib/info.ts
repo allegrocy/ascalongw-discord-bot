@@ -43,7 +43,7 @@ export class Info {
          * Right click on the emoji and copy the link.
          * The ID is the name of the image file without the extension.
          */
-        this.copperCoin = this.client.emojis.cache.get('766526001344806934');
+        this.copperCoin = this.client.emojis.cache.get('796371200280100884');
         this.dailyCountdown = getActivityMeta('zaishen-mission')['dailyCountdown'];
     }
 
@@ -101,7 +101,7 @@ export class Info {
                 {
                     name: `Zaishen Combat`,
                     value: [
-                        `${getActivity('zaishen-combat', this.now)}`, 
+                        `${getActivity('zaishen-combat', this.now)}`,
                         `150 ${this.copperCoin}`,
                     ],
                     inline: true,

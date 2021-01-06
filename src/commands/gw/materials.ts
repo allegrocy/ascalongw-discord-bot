@@ -1,10 +1,17 @@
 import { Command, CommandoClient, CommandoMessage } from 'discord.js-commando';
-import { Materials } from '../../lib/materials.js';
-
-const axios = require('axios');
+import { getMaterial } from '../../lib/materials';
+import axios from 'axios';
 
 const trade_website = 'https://kamadan.gwtoolbox.com';
-const max_results = 10;
+
+interface TraderQuotes {
+    buy: Record<string, TraderQuote>;
+}
+
+interface TraderQuote {
+    p: number;
+    t: number;
+}
 
 export default class MaterialsCommand extends Command {
     constructor(client: CommandoClient) {
@@ -13,55 +20,50 @@ export default class MaterialsCommand extends Command {
             aliases: ['mats'],
             group: 'gw',
             memberName: 'mats',
-            description: 'Queries '+trade_website+' for current material trader prices.',
+            description: `Queries ${trade_website} for current material trader prices.`,
             details: '',
             examples: ['mats']
         });
     }
 
     async run(message: CommandoMessage) {
-      let ongoing_message : any = await message.say(`Fetching current material prices, just a sec...`);
-      let json : any = false;
-      try {
-        json = await axios.get(trade_website+'/trader_quotes');
-        json = (json && json.data ? json.data : false);
-      } catch (error) {
-        console.error(error);
-      }
-      if(typeof json == 'string')
-        try { json = JSON.parse(json); } catch(e) {};
-      if(!json || !json.buy)
-        return ongoing_message.edit(`Sorry, something went wrong fetching results from ${trade_website}`);
-      
-      let abbrPrice = function(price:number,dp:number) {
-        let as_k = 0;
-        if(price > 999) {
-          as_k = 1;
-          price /= 1000;
+        const sayResult = await message.say('Fetching current material prices, just a sec...');
+        const fetchMessage = Array.isArray(sayResult) ? sayResult[sayResult.length - 1] : sayResult;
+
+        const response = await axios.get<TraderQuotes>(`${trade_website}/trader_quotes`);
+
+        if (response.status !== 200) {
+            return fetchMessage.edit(`Sorry, something went wrong fetching results from ${trade_website}.`);
         }
-        if(price % 1 === 0)
-            dp = 0;
-        return price.toFixed(dp)+(as_k ? "k" : "g");
-      }
-      
-      let get_row = function(key : string, val : any) {
-        let item = Materials.getItem(key);
-        if(!item)
-          return null;
-        return `${item.name}: ${abbrPrice(val.p,2)}`;
-      };
-      
-      let results : string[] = [];
-      for(var i in json.buy) {
-        var got = get_row(i,json.buy[i]);
-        if(got)
-          results.push(got);
-      }
-      
-      let message_body = [
-        `Latest trader prices from ${trade_website}`,
-        '>>> ' + `${results.join('\n')}`
-      ];
-      return ongoing_message.edit(message_body);
+
+        const json = response.data;
+
+        if (!json || !json.buy) {
+            return fetchMessage.edit(`Sorry, something went wrong fetching results from ${trade_website}`);
+        }
+
+        const results = Object.keys(json.buy).map(modelId => {
+            const data = json.buy[modelId];
+            const item = getMaterial(+modelId);
+            if (!item) return;
+            return `${item.name}: ${abbreviatePrice(data.p, 2)}`;
+        }).filter(value => !!value);
+
+        return fetchMessage.edit([
+            `Latest trader prices from ${trade_website}`,
+            '>>> ' + `${results.join('\n')}`
+        ]);
     }
+}
+
+function abbreviatePrice(price: number, digits: number) {
+    let value = price;
+    const suffixes = ['g', 'k'];
+    let suffix = 0;
+    while (value >= 1000 && suffix < suffixes.length) {
+        value /= 1000;
+        suffix++;
+    }
+
+    return `${value.toFixed(suffix === 0 ? 0 : digits)}${suffixes[suffix]}`;
 }
