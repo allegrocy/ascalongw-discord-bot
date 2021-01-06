@@ -1,5 +1,5 @@
 import { createCanvas, loadImage } from 'canvas';
-import { Command, CommandoClient } from 'discord.js-commando';
+import { Command, CommandoClient, CommandoMessage } from 'discord.js-commando';
 import {
     Attribute,
     decodeTemplate,
@@ -11,50 +11,24 @@ import {
 } from '../../lib/skills';
 import { MessageAttachment } from 'discord.js';
 import skills from '../../../assets/skills.json';
+import {
+    ACTIVATION,
+    ADRENALINE,
+    DIGITS,
+    ENERGY,
+    OVERCAST,
+    PROFESSION,
+    RECHARGE,
+    SACRIFICE,
+    TEMPLATE,
+    UPKEEP
+} from '../../helper/emoji';
 import path = require('path');
 
 const IMAGE_SIZE = 64;
 
-const EMOJI_TEMPLATE = '<:template:769885690610712587>';
-const EMOJI_ADRENALINE = '<:adrenaline:769885687788732417>';
-const EMOJI_ENERGY = '<:energy:769885688966545490>';
-const EMOJI_SACRIFICE = '<:sacrifice:769885690607042560>';
-const EMOJI_ACTIVATION = '<:activation:769885687700520991>';
-const EMOJI_RECHARGE = '<:recharge:769885690204389407>';
-const EMOJI_OVERCAST = '<:overcast:769885690221297674>';
-const EMOJI_UPKEEP = '<:upkeep:769885690670350377>';
-
-const EMOJI_PROFESSION: Map<Profession, string> = new Map([
-    [Profession.None, '<:none:769885691941224449>'],
-    [Profession.Warrior, '<:warrior:769885693429678110>'],
-    [Profession.Ranger, '<:ranger:769885693685006336>'],
-    [Profession.Monk, '<:monk:769885692834480149>'],
-    [Profession.Necromancer, '<:necromancer:769885693911498752>'],
-    [Profession.Mesmer, '<:mesmer:769885691386789898>'],
-    [Profession.Elementalist, '<:elementalist:769885689553747988>'],
-    [Profession.Assassin, '<:assassin:769885688363221002>'],
-    [Profession.Ritualist, '<:ritualist:769885693392060457>'],
-    [Profession.Paragon, '<:paragon:769885693656432690>'],
-    [Profession.Dervish, '<:dervish:769885688619204619>'],
-]);
-
-const DIGITS = [
-    '\u0030\u20E3',
-    '\u0031\u20E3',
-    '\u0032\u20E3',
-    '\u0033\u20E3',
-    '\u0034\u20E3',
-    '\u0035\u20E3',
-    '\u0036\u20E3',
-    '\u0037\u20E3',
-    '\u0038\u20E3',
-    '\u0039\u20E3',
-];
-
-const EDIT = '\uD83D\uDCDD';
-
 // @todo move this somewhere sensible
-const assets = path.join(__dirname, '../../../../assets');
+const assets = path.join(__dirname, '../../../assets');
 
 export default class SkillbarCommand extends Command {
     constructor(client: CommandoClient) {
@@ -83,6 +57,7 @@ export default class SkillbarCommand extends Command {
 
             const message = reaction.message;
             if (!client.user || message.author.id !== client.user.id) return;
+            if (user.id === client.user.id) return;
 
             const template = message.content.match(/-- `([^`]+)` --/);
             if (!template) return;
@@ -97,7 +72,7 @@ export default class SkillbarCommand extends Command {
         });
     }
 
-    async run(message: any, args: {
+    async run(message: CommandoMessage, args: {
         template: string,
     }) {
         const skillbar = decodeTemplate(args.template);
@@ -129,8 +104,8 @@ function buildMessage(skillbar: Skillbar, skillIndex: number) {
 
     if (!skillData) return null;
 
-    const primary = `${EMOJI_PROFESSION.get(skillbar.primary)} ${getProfessionAbbreviation(skillbar.primary)}`;
-    const secondary = `${getProfessionAbbreviation(skillbar.secondary)} ${EMOJI_PROFESSION.get(skillbar.secondary)}`;
+    const primary = `${PROFESSION.get(skillbar.primary)} ${getProfessionAbbreviation(skillbar.primary)}`;
+    const secondary = `${getProfessionAbbreviation(skillbar.secondary)} ${PROFESSION.get(skillbar.secondary)}`;
 
     const listAttributes = (attributes: Skillbar['attributes']) => {
         const arr = [];
@@ -142,19 +117,19 @@ function buildMessage(skillbar: Skillbar, skillIndex: number) {
     };
 
     const skillInfo = [];
-    if (skillData.z?.d) skillInfo.push(`-${skillData.z.d} ${EMOJI_UPKEEP}`);
-    if (skillData.z?.a) skillInfo.push(`${skillData.z.a} ${EMOJI_ADRENALINE}`);
-    if (skillData.z?.e) skillInfo.push(`${skillData.z.e} ${EMOJI_ENERGY}`);
-    if (skillData.z?.s) skillInfo.push(`${skillData.z.s} ${EMOJI_SACRIFICE}`);
-    if (skillData.z?.c) skillInfo.push(`${skillData.z.c} ${EMOJI_ACTIVATION}`);
-    if (skillData.z?.r) skillInfo.push(`${skillData.z.r} ${EMOJI_RECHARGE}`);
-    if (skillData.z?.x) skillInfo.push(`${skillData.z.x} ${EMOJI_OVERCAST}`);
+    if (skillData.z?.d) skillInfo.push(`-${skillData.z.d} ${UPKEEP}`);
+    if (skillData.z?.a) skillInfo.push(`${skillData.z.a} ${ADRENALINE}`);
+    if (skillData.z?.e) skillInfo.push(`${skillData.z.e} ${ENERGY}`);
+    if (skillData.z?.s) skillInfo.push(`${skillData.z.s} ${SACRIFICE}`);
+    if (skillData.z?.c) skillInfo.push(`${skillData.z.c} ${ACTIVATION}`);
+    if (skillData.z?.r) skillInfo.push(`${skillData.z.r} ${RECHARGE}`);
+    if (skillData.z?.x) skillInfo.push(`${skillData.z.x} ${OVERCAST}`);
     if (skillData.p) skillInfo.push(`Prof: **${getProfessionName(skillData.p)}**`);
     if (skillData.a) skillInfo.push(`Attrb: **${getAttributeName(skillData.a)}**`);
     if (skillData.t) skillInfo.push(`Type: **${getSkillTypeName(skillData)}**`);
 
     return [
-        `${primary} / ${secondary} -- \`${skillbar.template}\` -- ${EMOJI_TEMPLATE}`,
+        `${primary} / ${secondary} -- \`${skillbar.template}\` -- ${TEMPLATE}`,
         listAttributes(skillbar.attributes).join(' '),
         '',
         `Skill ${skillIndex + 1}: **${skillData.n}** -- <https://wiki.guildwars.com/wiki/${encodeURIComponent(skillData.n)}>`,
