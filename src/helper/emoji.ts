@@ -36,4 +36,6 @@ export const RECHARGE = '<:recharge:769885690204389407>';
 export const OVERCAST = '<:overcast:769885690221297674>';
 export const UPKEEP = '<:upkeep:769885690670350377>';
 
+export const ZAISHEN_COPPER_COIN = '<:zaishen_copper_coin:796371200280100884>';
+
 export const EDIT = '\uD83D\uDCDD';

@@ -1,16 +1,6 @@
-import { intervalToDuration } from 'date-fns';
 import { Command, CommandoClient, CommandoMessage } from 'discord.js-commando';
-import Discord from 'discord.js';
 
-import {
-    ACTIVITIES,
-    getActivity,
-    getActivityMeta,
-} from '../../lib/activities';
-
-import {
-    Info,
-} from '../../lib/info'
+import { createEmbed } from '../../lib/zaishen-quest';
 
 export = class ZaishenQuestCommand extends Command {
     constructor(client: CommandoClient) {
@@ -25,8 +15,6 @@ export = class ZaishenQuestCommand extends Command {
     }
 
     async run(message: CommandoMessage) {
-        let info = new Info(this.client);
-        message.channel.send(info.zaishenQuestText());
-        return message.say(info.zaishenQuestEmbed());
+        return message.say(createEmbed(new Date()));
     }
 }
