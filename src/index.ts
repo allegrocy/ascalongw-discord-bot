@@ -20,7 +20,6 @@ client.once('ready', async () => {
 
 client.registry
     .registerGroups([
-        ['community', 'Server community commands'],
         ['gw', 'Guild Wars-related commands']
     ])
     .registerDefaultTypes()
