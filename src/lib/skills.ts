@@ -122,9 +122,12 @@ export function getAttributeName<T extends keyof typeof ATTRIBUTE_NAMES>(attribu
     return ATTRIBUTE_NAMES[attribute];
 }
 
+const TEMPLATE_TYPE = 14;
+const VERSION = 0;
+
 export interface Skillbar {
-    type: 14,
-    version: number,
+    type: typeof TEMPLATE_TYPE,
+    version: typeof VERSION,
     primary: Profession,
     secondary: Profession,
     attributes: Partial<Record<Attribute, number>>,
@@ -143,8 +146,8 @@ export function decodeTemplate(template: string): Skillbar | null {
         return binval(out);
     };
     const templateType = read(4);
-    if (templateType != 14) return null;
-    const version = read(4);
+    if (templateType != TEMPLATE_TYPE) return null;
+    const version = read(4) as typeof VERSION;
     const professionBitLength = read(2) * 2 + 4;
     const primary = read(professionBitLength);
     const secondary = read(professionBitLength);
@@ -176,11 +179,47 @@ export function decodeTemplate(template: string): Skillbar | null {
     };
 }
 
+export function encodeSkillbar(skillbar: Exclude<Skillbar, 'template'>): string {
+    const type = valbin(skillbar.type, 4);
+    const version = valbin(skillbar.version, 4);
+
+    const professionBitLength = Math.max(4, valbin(skillbar.primary, 0).length, valbin(skillbar.secondary, 0).length);
+    const primary = valbin(skillbar.primary, professionBitLength);
+    const secondary = valbin(skillbar.secondary, professionBitLength);
+
+    const attributeCount = valbin(Object.keys(skillbar.attributes).length, 4);
+    const attributeBitLength = Math.max(4, ...Object.keys(skillbar.attributes).map(a => valbin(a, 0).length));
+    const attributes = Object.entries(skillbar.attributes).reduce((out, [attributeId, attributeLevel]) => {
+        return [
+            ...out,
+            valbin(attributeId, attributeBitLength),
+            valbin(attributeLevel!, 4), // eslint-disable-line @typescript-eslint/no-non-null-assertion
+        ];
+    }, [] as string[]);
+
+    const skillBitLength = Math.max(8, ...skillbar.skills.map(skillId => valbin(skillId, 0).length));
+    const skills = skillbar.skills.map(skillId => valbin(skillId, skillBitLength));
+
+    const template = [
+        type,
+        version,
+        valbin(Math.max(Math.ceil((professionBitLength - 4) / 2), 0), 2),
+        primary,
+        secondary,
+        attributeCount,
+        valbin(Math.max(attributeBitLength - 4, 0), 4),
+        ...attributes,
+        valbin(Math.max(skillBitLength - 8, 0), 4),
+        ...skills,
+    ];
+    return bintocode(template.join(''));
+}
+
 function binpadright(s: string, n: number) {
     return s.padEnd(n, '0');
 }
-function valbin(v: string, n: number) {
-    return binpadright(strrev(parseInt(v).toString(2)), n);
+function valbin(v: string | number, n: number) {
+    return binpadright(strrev(parseInt(v.toString()).toString(2)), n);
 }
 function binval(b: string) {
     return parseInt(strrev(b), 2);
@@ -201,4 +240,15 @@ function codetobin(template: string) {
         binary += valbin(charindex(template.substr(i, 1)).toString(), 6);
     }
     return binary;
+}
+
+function bintocode(bin: string) {
+    const r = bin.length % 6;
+    let c = '';
+    if(r != 0) bin = binpadright(bin, bin.length + 6 - r);
+    while(bin.length > 0) {
+        c += _base64.substr(parseInt(strrev(bin.substr(0, 6)), 2), 1);
+        bin = bin.substr(6);
+    }
+    return c;
 }

@@ -1,16 +1,17 @@
 import { createCanvas, loadImage } from 'canvas';
-import { Command, CommandoClient, CommandoMessage } from 'discord.js-commando';
+import { Command, CommandoClient } from 'discord.js-commando';
 import {
     Attribute,
     decodeTemplate,
     getAttributeName,
-    getProfessionAbbreviation, getProfessionName,
+    getProfessionAbbreviation,
+    getProfessionName,
     Profession,
     Skillbar,
 } from '../../lib/skills';
-import path = require('path');
-import { MessageAttachment, TextChannel, MessageReaction } from 'discord.js';
+import { MessageAttachment } from 'discord.js';
 import skills from '../../../assets/skills.json';
+import path = require('path');
 
 const IMAGE_SIZE = 64;
 
@@ -50,6 +51,8 @@ const DIGITS = [
     '\u0039\u20E3',
 ];
 
+const EDIT = '\uD83D\uDCDD';
+
 // @todo move this somewhere sensible
 const assets = path.join(__dirname, '../../../../assets');
 
@@ -67,62 +70,39 @@ export default class SkillbarCommand extends Command {
             args: [
                 {
                     key: 'template',
-                    prompt: 'enter a skill template code.',
-                    type: 'string'
+                    prompt: 'enter valid skill template code.',
+                    type: 'string',
                 }
             ]
         });
-        client.on('messageReactionAdd',this.onReaction);
-        client.on('messageReactionRemove',this.onReaction);
-        // https://github.com/AnIdiotsGuide/discordjs-bot-guide/blob/master/coding-guides/raw-events.md
-        client.on('raw', this.onRawPacket);
+
+        client.on('messageReactionAdd', async (reaction, user) => {
+            if (reaction.partial) {
+                await reaction.fetch();
+            }
+
+            const message = reaction.message;
+            if (!client.user || message.author.id !== client.user.id) return;
+
+            const template = message.content.match(/-- `([^`]+)` --/);
+            if (!template) return;
+
+            const skillbar = decodeTemplate(template[1]);
+            if (!skillbar) return;
+
+            const index = DIGITS.indexOf(reaction.emoji.name);
+            if (index === -1) return;
+
+            await message.edit(buildMessage(skillbar, index - 1));
+        });
     }
-    async onRawPacket(packet: any) {
-      const client = <any>this;
-      if (!['MESSAGE_REACTION_ADD', 'MESSAGE_REACTION_REMOVE'].includes(packet.t)) 
-        return;
-      const channel = await client.channels.fetch(packet.d.channel_id) as TextChannel;
-      if (channel.messages.cache.has(packet.d.message_id)) 
-        return;
-      const message = await channel.messages.fetch(packet.d.message_id);
-      const emoji = packet.d.emoji.id ? `${packet.d.emoji.name}:${packet.d.emoji.id}` : packet.d.emoji.name;
-      const reaction = message.reactions.resolve(emoji) as MessageReaction;
-      const user = await client.users.fetch(packet.d.user_id);
-      //if (reaction) 
-      //  reaction.users.set(packet.d.user_id, user);
-      if (packet.t === 'MESSAGE_REACTION_ADD')
-        client.emit('messageReactionAdd', reaction, user);
-      if (packet.t === 'MESSAGE_REACTION_REMOVE')
-        client.emit('messageReactionRemove', reaction, user);
-    }
-    async onReaction(reaction: any, user:any) {
-      let message = reaction.message;
-      var err = function(msg:string) {
-        //message.reply(msg);
-      }
-      
-      if(message.author.id != message.client.user.id)
-        return err('Not our message.'); // Not our message.
-        
-      let template = message.content.match(/-- `([^`]+)` --/);
-      if(!template)
-        return err('Failed to find a template code');
-      
-      const skillbar = decodeTemplate(template[1]);
-      if (!skillbar) 
-        return err('Invalid skillbar'); 
-        
-      const index = DIGITS.indexOf(reaction.emoji.name);
-      if(index == -1)
-        return err('Not a valid reaction');
-      message.edit(buildMessage(skillbar, index - 1));
-    }
+
     async run(message: any, args: {
         template: string,
     }) {
         const skillbar = decodeTemplate(args.template);
 
-        if (!skillbar) return null;
+        if (!skillbar) return message.say(`\`${args.template}\` is not a valid skill template.`);
 
         const canvas = createCanvas(8 * IMAGE_SIZE, IMAGE_SIZE);
         const ctx = canvas.getContext('2d');
@@ -130,13 +110,13 @@ export default class SkillbarCommand extends Command {
         const images = await Promise.all(
             skillbar.skills.map(skillID => loadImage(path.join(assets, 'skills', `${skillID}.jpg`)))
         );
-        images.map((image, index) => ctx.drawImage(image, index * IMAGE_SIZE, 0, IMAGE_SIZE, IMAGE_SIZE));
+        images.forEach((image, index) => ctx.drawImage(image, index * IMAGE_SIZE, 0, IMAGE_SIZE, IMAGE_SIZE));
 
         const attachment = new MessageAttachment(canvas.toBuffer(), `${args.template}.png`);
         const result = await message.say(buildMessage(skillbar, 0), attachment);
         const lastMessage = Array.isArray(result) ? result[result.length - 1] : result;
         for (let i = 0; i < skillbar.skills.length; i++) {
-          await lastMessage.react(DIGITS[i + 1]);
+            await lastMessage.react(DIGITS[i + 1]);
         }
 
         return result;

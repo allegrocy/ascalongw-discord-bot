@@ -2,6 +2,7 @@ import { CommandoClient } from 'discord.js-commando';
 
 import path from 'path';
 import config from '../config.json';
+import { addUncachedMessageReactionHandler } from './helper/reaction';
 
 const client = new CommandoClient({
     commandPrefix: config.prefix,
@@ -14,6 +15,7 @@ client.once('ready', async () => {
     if (!client.user) return;
     console.log(`Ready! Logged in as ${client.user.username}#${client.user.discriminator}.`);
     console.log(await client.generateInvite());
+    addUncachedMessageReactionHandler(client);
 });
 
 client.registry
