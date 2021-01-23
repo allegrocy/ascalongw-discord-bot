@@ -34,7 +34,7 @@ export default class SkillbarCommand extends Command {
     constructor(client: CommandoClient) {
         super(client, {
             name: 'skillbar',
-            aliases: ['s'],
+            aliases: ['s','build'],
             group: 'gw',
             memberName: 's',
             description: 'Previews a skill template.',
