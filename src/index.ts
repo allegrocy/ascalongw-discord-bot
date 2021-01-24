@@ -1,8 +1,8 @@
 import { CommandoClient } from 'discord.js-commando';
-import { Permissions } from 'discord.js';
 import path from 'path';
 import config from '../config.json';
 import { addUncachedMessageReactionHandler } from './helper/reaction';
+import permissions from './helper/permissions';
 
 const client = new CommandoClient({
     commandPrefix: config.prefix,
@@ -12,16 +12,6 @@ const client = new CommandoClient({
 client.once('ready', async () => {
     if (!client.user) return;
     console.log(`Ready! Logged in as ${client.user.username}#${client.user.discriminator}.`);
-
-    const permissions = new Permissions([
-        'VIEW_CHANNEL',
-        'SEND_MESSAGES',
-        'MANAGE_MESSAGES',
-        'ATTACH_FILES',
-        'READ_MESSAGE_HISTORY',
-        'USE_EXTERNAL_EMOJIS',
-        'ADD_REACTIONS',
-    ]);
 
     console.log(await client.generateInvite(permissions));
     addUncachedMessageReactionHandler(client);
