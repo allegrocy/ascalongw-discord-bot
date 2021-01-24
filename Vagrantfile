@@ -23,6 +23,8 @@ pre_includes.each do |filename|
 	require filename # unless not File.exists?(filename)
 end
 
+$rsync_excludes = $rsync_excludes | ['node_modules/','dist/']
+
 enforce_machine_name_requirement()
 
 Ubuntu20_Official_amd64 = {

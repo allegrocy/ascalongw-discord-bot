@@ -5,7 +5,7 @@
 #------------------------------
 
 # Args for Rsync to cloud servers
-$rsync_args = ["--verbose","--recursive","--archive","--delete","--compress","--copy-links", "--update"]
+$rsync_args = ["--verbose","--recursive","--archive","--compress","--copy-links", "--update"]
 $rsync_excludes = [".git/","VagrantConfig/","Vagrantfile","ssh/","ssl/","client/","server_config.json"]
 $config_folder = File.dirname(__FILE__)
 

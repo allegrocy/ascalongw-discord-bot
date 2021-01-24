@@ -68,7 +68,9 @@ export default class SkillbarCommand extends Command {
             const index = DIGITS.indexOf(reaction.emoji.name);
             if (index === -1) return;
 
-            await message.edit(buildMessage(skillbar, index - 1));
+            const to_edit = buildMessage(skillbar, index - 1);
+            if(to_edit)
+              await message.edit(to_edit);
         });
     }
 
