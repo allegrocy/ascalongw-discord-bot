@@ -17,7 +17,7 @@ else
 fi
 printf "${RED}*** Connected ssh client is ${SSH_IP} ***${NC}\n";
 
-REQUIRED_PACKAGES='apt-transport-https libcurl4-openssl-dev build-essential curl git ssh nano chrpath libssl-dev libxft-dev libfreetype6 libfontconfig1 certbot sudo libjpeg-dev libpixman-1-dev libcairo2-dev libpango1.0-dev'
+REQUIRED_PACKAGES='apt-transport-https libcurl4-openssl-dev build-essential curl git ssh nano chrpath libssl-dev libxft-dev libfreetype6 libfontconfig1 sudo libjpeg-dev libpixman-1-dev libcairo2-dev libpango1.0-dev'
 
 sudo ln -sf /usr/share/zoneinfo/${SERVER_TIMEZONE} /etc/localtime; 
 export NODE_ENV=production; 
@@ -29,8 +29,8 @@ export NODE_ENV=production;
 
 sudo dpkg -s ${REQUIRED_PACKAGES} 2>/dev/null >/dev/null || (
   printf "${RED}*** Installing missing packages via apt-get ***${NC}\n";
-  sudo add-apt-repository ppa:certbot/certbot;
-  sudo apt-get update && sudo apt-get install -y apt-transport-https build-essential curl;
+  sudo apt-get update;
+  sudo apt-get install -y apt-transport-https build-essential curl;
   sudo apt-get install -y ${REQUIRED_PACKAGES});
 
 # Install npm
@@ -55,7 +55,7 @@ printf "${RED}*** Installing any missing node_modules ***${NC}\n";
 forever --help 2>/dev/null > /dev/null || sudo npm install forever -g;
 cd "/tmp"; 
 rm -R ./node_modules; 
-tar -zxf "${PROJECT_CODE_FOLDER}/node_modules.tar.gz"
+sudo tar -zxf "${PROJECT_CODE_FOLDER}/node_modules.tar.gz"
 mkdir -p ./node_modules;
 cmp -s "${PROJECT_CODE_FOLDER}/package.json" "./node_modules/package.json" || (
   printf "${RED}*** package.json file has been modified - running npm install ***${NC}\n"; 
@@ -65,7 +65,7 @@ cmp -s "${PROJECT_CODE_FOLDER}/package.json" "./node_modules/package.json" || (
   rm -R ./node_modules;
   sudo npm install ${PROJECT_CODE_FOLDER}/ && cp -ura ${PROJECT_CODE_FOLDER}/package.json ./node_modules/package.json;
   rm -R ./node_modules/ascalongw-discord-bot;
-  tar -zcf "${PROJECT_CODE_FOLDER}/node_modules.tar.gz" node_modules);
+  sudo tar -zcf "${PROJECT_CODE_FOLDER}/node_modules.tar.gz" node_modules);
 cd "/tmp"; 
 rm -R ./node_modules; 
 
@@ -74,8 +74,8 @@ rm -R ./node_modules;
 printf "${RED}*** ${PROJECT_CONTAINER}: Restarting server.js (forever stopall && forever start server.js) ***${NC}\n"; 
 cd "${PROJECT_CODE_FOLDER}";
 
-cp -ura server_config.json config.json;
-sudo rm -R ./dist;
+sudo cp -ura server_config.json config.json;
+# sudo rm -R ./dist;
 sudo npm run build;
 sudo forever stop ${PROJECT_CODE_FOLDER}/dist/src/index.js;
 sudo touch /tmp/forever.log; 

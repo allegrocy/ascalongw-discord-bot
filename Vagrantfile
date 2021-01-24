@@ -64,22 +64,16 @@ server_config = {
   }
 }
 
-local_config = Marshal::load(Marshal.dump(server_config))
-local_config['is_local'] = 1
-
-cloud_config = Marshal::load(Marshal.dump(server_config))
-cloud_config['is_cloud'] = 1
-
-production_config = Marshal::load(Marshal.dump(cloud_config))
-production_config['is_production'] = 1
-
 # ------------------ 	Vagrant Machine Definitions		 ------------------
 
 Machines = {
   'VirtualBox' => {
 		'local' => {
 			'hostnames' => ['local.gwascalon.com'],	# With virtualbox, the first item is added to hosts file, then removed for further processing (see VagrantConfig/Functions.rb)
-			'server_config' => local_config,
+			'server_config' => server_config.merge({
+        'token'=>ENV["ASCALONGW-TOKEN-LOCAL"],
+        'is_local'=>1
+      }),
 			'ip_address' => '10.10.10.52',
       'deployment_script'=>'deploy.sh',
 			'code_to_provision' => 'local'
@@ -89,7 +83,7 @@ Machines = {
 
 		'staging' => {
 			'ip_address' => '107.191.109.95',#'34.248.80.106',
-			'server_config' => cloud_config.merge({
+			'server_config' => server_config.merge({
 				'repository_code_folder'=>'/home/ubuntu/ascalongw-discord-bot',
         'is_cloud'=>1
 			}),
