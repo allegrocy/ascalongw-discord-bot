@@ -6,6 +6,7 @@
 
 # Args for Rsync to cloud servers
 $rsync_args = ["--verbose","--recursive","--archive","--delete","--compress","--copy-links", "--update"]
+$rsync_excludes = [".git/","VagrantConfig/","Vagrantfile","ssh/","ssl/","client/","server_config.json"]
 $config_folder = File.dirname(__FILE__)
 
 def run_command(cmd)
@@ -157,7 +158,7 @@ def get_action_from_command()
 	return nil
 end
 def get_machine_name_from_command()
-	if ARGV[1] && ARGV[1].match(/^[a-zA-Z0-9]+$/)
+	if ARGV[1] && ARGV[1].match(/^[a-zA-Z0-9-_]+$/)
 		return ARGV[1]
 	end
 	return nil
@@ -178,7 +179,9 @@ def machine_setup(machine, machine_name, machine_properties)
 	end
 	machine_properties['server_config']['is_local'] = machine_properties['is_local']
 	machine_properties['server_config']['is_cloud'] = machine_properties['is_cloud']
-	
+	if machine_properties['server_config']['is_cloud'] == 1
+    machine_properties['server_config']['is_local'] = machine_properties['is_local'] = 0
+  end
 	
 	code_to_provision = machine_properties['code_to_provision'] || 'local'
 	branch = machine_properties['branch'] || 'master'	# If the machine definition has 'branch' attribute, pull from that branch.
@@ -208,6 +211,7 @@ def machine_setup(machine, machine_name, machine_properties)
 			machine_properties['hostnames'].shift
 		end
 		machine.hostsupdater.remove_on_suspend = true
+		#machine.hostsupdater.id = "#{$project_name_sanitised}_#{machine_name}"
 		machine.ssh.private_key_path = ["ssh/#{$Project['keypair_name']}", "~/.vagrant.d/insecure_private_key"]
 		machine.vm.provision "file", source: "ssh/#{$Project['keypair_name']}.pub", destination: "~/.ssh/authorized_keys"
 		machine.vm.provision "shell_bash" do |s|
@@ -225,7 +229,11 @@ def machine_setup(machine, machine_name, machine_properties)
 		#end
 		if machine_properties['is_local'] == 1
 			machine.vm.synced_folder '.',"#{machine_properties['server_config']['repository_code_folder']}",
-				mount_options: ["dmode=777,fmode=755"]
+        #type: "nfs",
+        nfs_udp:false,
+		windows__nfs_options: ['nfsvers=3','rw', "dmode=777","fmode=755","uid=33","gid=33"],
+				mount_options: ['rw', "dmode=777","fmode=755","uid=33","gid=33"],
+        linux__nfs_options: ['rw','no_subtree_check','all_squash','async']
 			#machine.vm.synced_folder '.',"#{machine_properties['server_config']['repository_code_folder']}", type: 'rsync',
 			#	rsync__args: $rsync_args,
 			#	rsync__exclude: [".git/","VagrantConfig/","Vagrantfile","ssh/","server_config.json"],
@@ -235,9 +243,10 @@ def machine_setup(machine, machine_name, machine_properties)
 		else
 			machine.vm.synced_folder '.',"#{machine_properties['server_config']['repository_code_folder']}", type: 'rsync',
 				rsync__args: $rsync_args,
-				rsync__exclude: [".git/","VagrantConfig/","Vagrantfile","ssh/","ssl/","client/","server_config.json"],
+				rsync__exclude: $rsync_excludes,
 				rsync__auto: false,
-				mount_options: ["dmode=775,fmode=755"],
+        rsync__rsync_ownership: true,
+				mount_options: ["dmode=777","fmode=755","uid=33","gid=33"],
 				rsync__rsync_path: machine_properties['rsync_path'] || "rsync"
 		end
 	else 							# If provisioning code via the Git Repository...
@@ -254,13 +263,11 @@ def machine_setup(machine, machine_name, machine_properties)
 		server_config_json['hostname'] = machine.vm.hostname # machine_properties['hostnames']
 		s.name = "Writing machine_properties to #{machine_properties['server_config']['repository_code_folder']}/server_config.json"
 		s.inline = <<-EOC
-			FN=$1
-			JSON=$2
-			echo $2 > $1
-			chmod 755 $1
+			sudo echo $2 > $1
+			sudo chmod 755 $1
 		EOC
 		s.args = [ "#{machine_properties['server_config']['repository_code_folder']}/server_config.json", JSON.generate(server_config_json) ]
-		s.privileged = false
+		s.privileged = true
 	end
 	shell_script_deployment(machine, machine_name, machine_properties) unless chef_deployment(machine, machine_name, machine_properties)			# Deployment via Chef if 'chef_recipes' is provided in server_config.
 end
