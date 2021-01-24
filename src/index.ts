@@ -33,4 +33,5 @@ client.registry
     });
 
 // Bot token should always be placed in config.json and never committed to repo
+console.log("Bot token is "+config.token);
 client.login(config.token);
