@@ -17,7 +17,7 @@ else
 fi
 printf "${RED}*** Connected ssh client is ${SSH_IP} ***${NC}\n";
 
-REQUIRED_PACKAGES='apt-transport-https libcurl4-openssl-dev build-essential curl git ssh nano chrpath libssl-dev libxft-dev libfreetype6 libfontconfig1 certbot'
+REQUIRED_PACKAGES='apt-transport-https libcurl4-openssl-dev build-essential curl git ssh nano chrpath libssl-dev libxft-dev libfreetype6 libfontconfig1 certbot sudo libjpeg-dev libpixman-1-dev libcairo2-dev libpango1.0-dev'
 
 sudo ln -sf /usr/share/zoneinfo/${SERVER_TIMEZONE} /etc/localtime; 
 export NODE_ENV=production; 
@@ -34,11 +34,13 @@ sudo dpkg -s ${REQUIRED_PACKAGES} 2>/dev/null >/dev/null || (
   sudo apt-get install -y ${REQUIRED_PACKAGES});
 
 # Install npm
-npm -v 2>/dev/null > /dev/null || (curl -L https://npmjs.org/install.sh | sudo sh);
+npm -v | grep -q "[0-9]" || (sudo apt-get update && sudo apt install npm -y);
+# npm -v 2>/dev/null > /dev/null || (curl -L https://npmjs.org/install.sh | sudo sh);
 
 # Install nodejs
+NODEJS_VERSION="15"
 node -v | grep -q "v${NODEJS_VERSION}" || (
-  sudo apt-get remove nodejs;
+  # sudo apt-get remove nodejs -y;
   sudo npm cache clean -f;
   sudo npm install -g n;
   sudo n ${NODEJS_VERSION};

@@ -86,7 +86,7 @@ Machines = {
   'ManagedServers' => {
 
 		'staging' => {
-			'ip_address' => 'asdassad',#'34.248.80.106',
+			'ip_address' => '107.191.109.95',#'34.248.80.106',
 			'server_config' => cloud_config.merge({
 				'repository_code_folder'=>'/home/ubuntu/ascalongw-discord-bot',
         'is_cloud'=>1
@@ -95,7 +95,7 @@ Machines = {
 			#'rsync_path' => '~/local/bin/rsync',	# Custom rsync binary on server.
 			'deployment_script'=>'deploy.sh',
 			'prompt_user_before_provision' => 0,
-			'ssh_username' => 'ubuntu',
+			'ssh_username' => 'root',
 			'os' => 'linux'
 		}
 	}
