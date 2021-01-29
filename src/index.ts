@@ -15,6 +15,7 @@ client.once('ready', async () => {
 
     console.log(await client.generateInvite(permissions));
     addUncachedMessageReactionHandler(client);
+    client.user.setActivity('Listening to -help');
 });
 
 client.registry
@@ -25,6 +26,7 @@ client.registry
     .registerDefaultGroups()
     .registerDefaultCommands({
         eval: false,
+        unknownCommand: false,
         commandState: false
     })
     .registerCommandsIn({
