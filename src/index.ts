@@ -15,7 +15,7 @@ client.once('ready', async () => {
 
     console.log(await client.generateInvite(permissions));
     addUncachedMessageReactionHandler(client);
-    client.user.setActivity('Listening to -help');
+    client.user.setPresence({ activity: { name: '-help', type:'LISTENING' }});
 });
 
 client.registry
