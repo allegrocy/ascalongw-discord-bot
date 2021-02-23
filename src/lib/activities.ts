@@ -41,7 +41,7 @@ export const ACTIVITIES = {
     },
     'vanguard': {
         data: vanguard,
-        startDate: new Date(1276012800000),
+        startDate: new Date(1299168000000),
         period: MILLISECONDS_PER_DAY,
     },
     'wanted': {
@@ -51,7 +51,7 @@ export const ACTIVITIES = {
     },
     'zaishen-bounty': {
         data: zaishenBounty,
-        startDate: new Date(1299168000000),
+        startDate: new Date(1244736000000),
         period: MILLISECONDS_PER_DAY,
     },
     'zaishen-combat': {
