@@ -13,7 +13,7 @@ export = class weeklyBonusNextCommand extends Command {
             aliases: ['bonusnext', 'bn', 'wbn'],
             group: 'gw',
             memberName: 'bonusnext',
-            description: 'Displays current weekly bonuses information with a countdown.',
+            description: 'Displays next weeks bonuses information with a countdown.',
             details: ''
         });
     }
