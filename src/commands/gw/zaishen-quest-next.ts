@@ -8,7 +8,7 @@ export = class ZaishenQuestNextCommand extends Command {
     constructor(client: CommandoClient) {
         super(client, {
             name: 'zaishen-quest-next',
-            aliases: ['zqnext'],
+            aliases: ['zqnext', 'zqn'],
             group: 'gw',
             memberName: 'zqnext',
             description: 'Displays tomorrow\'s Zaishen Quest Information with a countdown',

@@ -21,7 +21,7 @@ export = class PreSearingCommand extends Command {
     constructor(client: CommandoClient) {
         super(client, {
             name: 'pre-searing',
-            aliases: ['pre'],
+            aliases: ['pre', 'p'],
             group: 'gw',
             memberName: 'pre',
             description: 'Displays current Pre Searing dailies information with a countdown.',
@@ -39,16 +39,16 @@ export = class PreSearingCommand extends Command {
             .addFields(
                 {
                     name: `Vanguard Quest`,
-                    value: 
-                        `${getActivity('vanguard', now)}\n` + 
+                    value:
+                        `${getActivity('vanguard', now)}\n` +
                         `_${getActivityMeta('vanguard', now)['dailyCountdown']} left_`,
                     inline: true,
                 },
                 BLANKFIELD,
                 {
                     name: `Nicholas Sandford`,
-                    value: 
-                        `${getActivity('nicholas-sandford', now)}\n` + 
+                    value:
+                        `${getActivity('nicholas-sandford', now)}\n` +
                         `_${getActivityMeta('nicholas-sandford', now)['dailyCountdown']} left_`,
                     inline: true,
                 },

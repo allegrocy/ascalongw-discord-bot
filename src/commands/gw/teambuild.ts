@@ -15,7 +15,7 @@ export default class TeambuildCommand extends Command {
     constructor(client: CommandoClient) {
         super(client, {
             name: 'teambuild',
-            aliases: ['tb'],
+            aliases: ['tb', 't'],
             group: 'gw',
             memberName: 't',
             description: 'Previews a team skill template.',

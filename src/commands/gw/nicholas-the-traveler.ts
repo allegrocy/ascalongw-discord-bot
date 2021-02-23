@@ -9,7 +9,7 @@ export = class NicholasTheTravelerCommand extends Command {
     constructor(client: CommandoClient) {
         super(client, {
             name: 'nicholas-the-traveler',
-            aliases: ['nick'],
+            aliases: ['nick', 'n'],
             group: 'gw',
             memberName: 'nick',
             description: 'Displays current Nicholas the Traveler information with a countdown.',
@@ -25,7 +25,7 @@ export = class NicholasTheTravelerCommand extends Command {
 
         const output = [
             '__This week:__',
-            `Nicholas the Traveler is collecting **${amount} ${item}** ` + 
+            `Nicholas the Traveler is collecting **${amount} ${item}** ` +
             `per present at **${area}** in ${region}.`,
             `Moving off in ${weeklyCountdown}!`,
         ];
