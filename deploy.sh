@@ -74,10 +74,4 @@ rm -R ./node_modules;
 printf "${RED}*** ${PROJECT_CONTAINER}: Restarting server.js (forever stopall && forever start server.js) ***${NC}\n"; 
 cd "${PROJECT_CODE_FOLDER}";
 
-sudo cp -ura server_config.json config.json;
-# sudo rm -R ./dist;
-sudo npm run build;
-sudo forever stop ${PROJECT_CODE_FOLDER}/dist/src/index.js;
-sudo touch /tmp/forever.log; 
-sudo chmod 777 /tmp/forever.log;
-sudo forever start -a -l /tmp/forever.log -s -c "node --expose-gc" ${PROJECT_CODE_FOLDER}/dist/src/index.js;
+node deploy.js;

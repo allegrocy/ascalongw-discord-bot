@@ -56,7 +56,10 @@ server_config = {
 	'deployment_date'=>Time.now.strftime("%Y%m%d%H%M%S"),
   'repository_code_folder'=>'/home/vagrant/ascalongw-discord-bot',
   'prefix' => '-',
-  'token' =>ENV["ASCALONGW-TOKEN"] || 'no-token',
+  'tokens' =>[
+      ENV["ASCALONGW-TOKEN"] || '',
+      ENV["KAMADANGW-TOKEN"] || ''
+  ],
   'owners' => ['379748158978392065'],
   'channels' => {
     'giveaways': '387595414259367939',
@@ -71,7 +74,7 @@ Machines = {
 		'local' => {
 			'hostnames' => ['local.gwascalon.com'],	# With virtualbox, the first item is added to hosts file, then removed for further processing (see VagrantConfig/Functions.rb)
 			'server_config' => server_config.merge({
-        'token'=>ENV["ASCALONGW-TOKEN-LOCAL"],
+        'tokens'=>[ENV["ASCALONGW-TOKEN-LOCAL"]],
         'is_local'=>1
       }),
 			'ip_address' => '10.10.10.52',
