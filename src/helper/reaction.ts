@@ -2,6 +2,8 @@ import { TextChannel } from 'discord.js';
 import { CommandoClient } from 'discord.js-commando';
 
 export function addUncachedMessageReactionHandler(client: CommandoClient) {
+    // @ts-ignore
+    // NB: 'raw' event type is deprecated but is still used in practice - need to tidy this up instead of ts-ignore!
     client.on('raw', async (packet: any) => {
         if (!['MESSAGE_REACTION_ADD', 'MESSAGE_REACTION_REMOVE'].includes(packet.t)) return;
         const channel = client.channels.resolve(packet.d.channel_id);
