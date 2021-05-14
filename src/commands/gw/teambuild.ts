@@ -1,7 +1,7 @@
 import { createCanvas, loadImage, Image as CanvasImage } from 'canvas';
 import { Command, CommandoClient, CommandoMessage } from 'discord.js-commando';
 import {
-    decodeTemplate
+    decodeTemplate, getProfessionName, Skillbar
 } from '../../lib/skills';
 import path = require('path');
 import { MessageAttachment } from 'discord.js';
@@ -36,15 +36,19 @@ export default class TeambuildCommand extends Command {
     async run(message: CommandoMessage, args: {
         templates: string[],
     }) {
-        const skillbars = args.templates.map(decodeTemplate).filter(skillbar => skillbar !== null);
-        const canvas = createCanvas(8 * IMAGE_SIZE, skillbars.length * IMAGE_SIZE);
+        const skillbars: Skillbar[] = args.templates.map(decodeTemplate).filter((skillbar): skillbar is Skillbar => skillbar !== null);
+        const canvas = createCanvas(9 * IMAGE_SIZE, skillbars.length * IMAGE_SIZE);
         const ctx = canvas.getContext('2d');
 
         const images = await Promise.all(skillbars.reduce((acc, skillbar) => {
-            return [...acc, ...skillbar!.skills.map(skillID => loadImage(path.join(assets, 'skills', `${skillID}.jpg`)))];
+            return [
+                ...acc,
+                loadImage(path.join(assets, 'professions', `${getProfessionName(skillbar.primary)}.png`)),
+                ...skillbar.skills.map(skillID => loadImage(path.join(assets, 'skills', `${skillID}.jpg`))),
+            ];
         }, [] as Promise<CanvasImage>[]));
 
-        images.forEach((image, index) => ctx.drawImage(image, (index % 8) * IMAGE_SIZE, Math.floor(index / 8) * IMAGE_SIZE, IMAGE_SIZE, IMAGE_SIZE));
+        images.forEach((image, index) => ctx.drawImage(image, (index % 9) * IMAGE_SIZE, Math.floor(index / 9) * IMAGE_SIZE, IMAGE_SIZE, IMAGE_SIZE));
 
         const attachment = new MessageAttachment(canvas.toBuffer(), `${args.templates.join('|')}.png`);
 
