@@ -48,9 +48,5 @@ async function cmd(cmd, log_output = true, throw_on_fail = true) {
   await cmd("sudo touch /tmp/forever.log;");
   await cmd("sudo chmod 777 /tmp/forever.log;");
   
-  server_config.tokens.forEach(async function(token) {
-    if(token) {
-      await cmd(`sudo forever start -a -l /tmp/forever.log -s -c "node --expose-gc" ${PROJECT_CODE_FOLDER}/dist/src/index.js ${token};`);
-    }
-  });
+  await cmd(`sudo forever start -a -l /tmp/forever.log -s -c "node --expose-gc" ${__dirname}/dist/src/index.js`);
 })();
