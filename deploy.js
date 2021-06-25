@@ -47,6 +47,7 @@ async function cmd(cmd, log_output = true, throw_on_fail = true) {
   await cmd("sudo forever stopall;");
   await cmd("sudo touch /tmp/forever.log;");
   await cmd("sudo chmod 777 /tmp/forever.log;");
+  await cmd("sudo cp -ura server_config.json "+__dirname+"/dist/config.json;");
   
   await cmd(`sudo forever start -a -l /tmp/forever.log -s -c "node --expose-gc" ${__dirname}/dist/src/index.js`);
 })();

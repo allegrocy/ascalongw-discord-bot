@@ -66,6 +66,11 @@ cmp -s "${PROJECT_CODE_FOLDER}/package.json" "./node_modules/package.json" || (
   sudo npm install ${PROJECT_CODE_FOLDER}/ && cp -ura ${PROJECT_CODE_FOLDER}/package.json ./node_modules/package.json;
   rm -R ./node_modules/ascalongw-discord-bot;
   sudo tar -zcf "${PROJECT_CODE_FOLDER}/node_modules.tar.gz" node_modules);
+if [ ! -d "${PROJECT_CODE_FOLDER}/node_modules" ] 
+then
+  cd "${PROJECT_CODE_FOLDER}";
+  sudo tar -zxf "${PROJECT_CODE_FOLDER}/node_modules.tar.gz"
+fi
 cd "/tmp"; 
 rm -R ./node_modules; 
 

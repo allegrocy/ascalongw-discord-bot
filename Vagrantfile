@@ -83,9 +83,8 @@ Machines = {
 		}
   },
   'ManagedServers' => {
-
 		'staging' => {
-			'ip_address' => '107.191.109.95',#'34.248.80.106',
+			'ip_address' => '66.70.245.23',#'34.248.80.106',
 			'server_config' => server_config.merge({
 				'repository_code_folder'=>'/home/ubuntu/ascalongw-discord-bot',
         'is_cloud'=>1
@@ -95,6 +94,7 @@ Machines = {
 			'deployment_script'=>'deploy.sh',
 			'prompt_user_before_provision' => 0,
 			'ssh_username' => 'root',
+      #'ssh_password' => ENV['ASCALONGW-ROOT-PW'],
 			'os' => 'linux'
 		}
 	}
