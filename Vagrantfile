@@ -69,6 +69,8 @@ server_config = {
 
 # ------------------ 	Vagrant Machine Definitions		 ------------------
 
+# NB: If using password access, you'll need to add the ssh key manually because rsync doesn't play nice
+# cat <local_public_key_location> | ssh <ssh_username>@<server_ip> "mkdir -p ~/.ssh && cat >> ~/.ssh/authorized_keys"
 Machines = {
   'VirtualBox' => {
 		'local' => {
