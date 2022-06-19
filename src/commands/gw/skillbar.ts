@@ -34,7 +34,7 @@ export default class SkillbarCommand extends Command {
     constructor(client: CommandoClient) {
         super(client, {
             name: 'skillbar',
-            aliases: ['s','build'],
+            aliases: ['s', 'build'],
             group: 'gw',
             memberName: 's',
             description: 'Previews a skill template.',
@@ -69,8 +69,9 @@ export default class SkillbarCommand extends Command {
             if (index === -1) return;
 
             const to_edit = buildMessage(skillbar, index - 1);
-            if(to_edit)
-              await message.edit(to_edit);
+            if (to_edit) {
+                await message.edit(to_edit);
+            }
         });
     }
 
@@ -104,8 +105,6 @@ function buildMessage(skillbar: Skillbar, skillIndex: number) {
     const skillId = skillbar.skills[skillIndex];
     const skillData = skills[skillId];
 
-    if (!skillData) return null;
-
     const primary = `${PROFESSION.get(skillbar.primary)} ${getProfessionAbbreviation(skillbar.primary)}`;
     const secondary = `${getProfessionAbbreviation(skillbar.secondary)} ${PROFESSION.get(skillbar.secondary)}`;
 
@@ -119,23 +118,30 @@ function buildMessage(skillbar: Skillbar, skillIndex: number) {
     };
 
     const skillInfo = [];
-    if (skillData.z?.d) skillInfo.push(`-${skillData.z.d} ${UPKEEP}`);
-    if (skillData.z?.a) skillInfo.push(`${skillData.z.a} ${ADRENALINE}`);
-    if (skillData.z?.e) skillInfo.push(`${skillData.z.e} ${ENERGY}`);
-    if (skillData.z?.s) skillInfo.push(`${skillData.z.s} ${SACRIFICE}`);
-    if (skillData.z?.c) skillInfo.push(`${skillData.z.c} ${ACTIVATION}`);
-    if (skillData.z?.r) skillInfo.push(`${skillData.z.r} ${RECHARGE}`);
-    if (skillData.z?.x) skillInfo.push(`${skillData.z.x} ${OVERCAST}`);
-    if (skillData.p) skillInfo.push(`Prof: **${getProfessionName(skillData.p)}**`);
-    if (skillData.a) skillInfo.push(`Attrb: **${getAttributeName(skillData.a)}**`);
-    if (skillData.t) skillInfo.push(`Type: **${getSkillTypeName(skillData)}**`);
+    if (skillData?.z?.d) skillInfo.push(`-${skillData.z.d} ${UPKEEP}`);
+    if (skillData?.z?.a) skillInfo.push(`${skillData.z.a} ${ADRENALINE}`);
+    if (skillData?.z?.e) skillInfo.push(`${skillData.z.e} ${ENERGY}`);
+    if (skillData?.z?.s) skillInfo.push(`${skillData.z.s} ${SACRIFICE}`);
+    if (skillData?.z?.c) skillInfo.push(`${skillData.z.c} ${ACTIVATION}`);
+    if (skillData?.z?.r) skillInfo.push(`${skillData.z.r} ${RECHARGE}`);
+    if (skillData?.z?.x) skillInfo.push(`${skillData.z.x} ${OVERCAST}`);
+    if (skillData?.p) skillInfo.push(`Prof: **${getProfessionName(skillData.p)}**`);
+    if (skillData?.a) skillInfo.push(`Attrb: **${getAttributeName(skillData.a)}**`);
+    if (skillData?.t) skillInfo.push(`Type: **${getSkillTypeName(skillData)}**`);
 
     return [
         `${primary} / ${secondary} -- \`${skillbar.template}\` -- ${TEMPLATE}`,
         listAttributes(skillbar.attributes).join(' '),
         '',
-        `Skill ${skillIndex + 1}: **${skillData.n}** -- <https://wiki.guildwars.com/wiki/${encodeURIComponent(skillData.n)}>`,
-        `${skillData.d}`,
+        ...(skillData
+            ? [
+                `Skill ${skillIndex + 1}: **${skillData.n}** -- <https://wiki.guildwars.com/wiki/${encodeURIComponent(skillData.n)}>`,
+                `${skillData.d}`
+            ]
+            : [
+                `Skill ${skillIndex + 1}: _empty_`
+            ]
+        ),
         '',
         skillInfo.join(' '),
     ];
