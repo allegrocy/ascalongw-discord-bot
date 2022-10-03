@@ -1,4 +1,5 @@
-import { createCanvas, loadImage } from 'canvas';
+import { createCanvas, loadImage, canvasToBuffer } from '../utility/canvas';
+
 import { Command, CommandoClient, CommandoMessage } from 'discord.js-commando';
 import {
     Attribute,
@@ -90,7 +91,7 @@ export default class SkillbarCommand extends Command {
         );
         images.forEach((image, index) => ctx.drawImage(image, index * IMAGE_SIZE, 0, IMAGE_SIZE, IMAGE_SIZE));
 
-        const attachment = new MessageAttachment(canvas.toBuffer(), `${args.template}.png`);
+        const attachment = new MessageAttachment(await canvasToBuffer(canvas), `${args.template}.png`);
         const result = await message.say(buildMessage(skillbar, 0), attachment);
         const lastMessage = Array.isArray(result) ? result[result.length - 1] : result;
         for (let i = 0; i < skillbar.skills.length; i++) {

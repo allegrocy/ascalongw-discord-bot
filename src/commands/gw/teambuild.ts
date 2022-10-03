@@ -1,4 +1,4 @@
-import { createCanvas, loadImage, Image as CanvasImage } from 'canvas';
+import { createCanvas, loadImage, canvasToBuffer } from '../utility/canvas';
 import { Command, CommandoClient, CommandoMessage } from 'discord.js-commando';
 import {
     decodeTemplate, getProfessionName, Skillbar
@@ -46,12 +46,19 @@ export default class TeambuildCommand extends Command {
                 loadImage(path.join(assets, 'professions', `${getProfessionName(skillbar.primary)}.png`)),
                 ...skillbar.skills.map(skillID => loadImage(path.join(assets, 'skills', `${skillID}.jpg`))),
             ];
-        }, [] as Promise<CanvasImage>[]));
+        }, [] as Promise<any>[]));
 
         images.forEach((image, index) => ctx.drawImage(image, (index % 9) * IMAGE_SIZE, Math.floor(index / 9) * IMAGE_SIZE, IMAGE_SIZE, IMAGE_SIZE));
 
-        const attachment = new MessageAttachment(canvas.toBuffer(), `${args.templates.join('|')}.png`);
+        let filename = `${args.templates.join('|')}.png`;
 
-        return await message.say('', attachment);
+        let buffer = await canvasToBuffer(canvas);
+        const attachment = new MessageAttachment(buffer, filename);
+
+		let reply = await message.say('', attachment);
+
+        
+		
+        return reply;
     }
 }
