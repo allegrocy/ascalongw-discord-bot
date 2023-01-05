@@ -86,7 +86,7 @@ Machines = {
   },
   'ManagedServers' => {
 		'staging' => {
-			'ip_address' => '66.70.245.23',#'34.248.80.106',
+			'ip_address' => '192.95.4.149',#'66.70.245.23',#'34.248.80.106',
 			'server_config' => server_config.merge({
 				'repository_code_folder'=>'/home/ubuntu/ascalongw-discord-bot',
         'is_cloud'=>1
