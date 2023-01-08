@@ -35,9 +35,18 @@ export default class WikiCommand extends Command {
 
         try {
             const response = await axios.get(url);
-            return await searchMessage.edit(response.request.res.responseUrl);
-        } catch(e) {
-            return await searchMessage.edit(`Sorry, something went wrong fetching results from ${url}.`);
+            let response_url = response.request.res.responseUrl;
+            // Find canonical link
+            const canonical = /<link[^>]+rel=["']canonical["'][^>]+href=["']([^"']+)/.exec(response.data);
+            if(canonical) {
+                response_url = canonical[1];
+            }
+            return await searchMessage.edit(response_url);
+        } catch(e : any) {
+            return await searchMessage.edit([
+                `Sorry, something went wrong fetching results from ${url}.`,
+                e.toString()
+            ]);
         }
     }
 }
