@@ -42,6 +42,7 @@ printf "${RED}*** Crontab file for this bash script is ${CRONTAB_FILENAME} ***${
 
 echo "SHELL=/bin/sh
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+USER=${USER}
 @reboot ${USER} /bin/bash ${CURRENT_BASH_SCRIPT}" | sudo tee "/etc/cron.d/${CRONTAB_FILENAME}";
 
 
@@ -65,31 +66,34 @@ node -v | grep -q "v${NODEJS_VERSION}" || (
 
 printf "${RED}*** Installing any missing node_modules ***${NC}\n";
 forever --help 2>/dev/null > /dev/null || sudo npm install forever -g;
-# Extract current version of node_modules.tar.gz into /tmp/node_modules
-cd "/tmp";
-[[ -d ./node_modules ]] && sudo rm -R ./node_modules;
-[[ -f "${PROJECT_CODE_FOLDER}/node_modules.tar.gz" ]] && sudo tar -zxf "${PROJECT_CODE_FOLDER}/node_modules.tar.gz";
+## Extract current version of node_modules.tar.gz into /tmp/node_modules
+#cd "/tmp";
+#[[ -d ./node_modules ]] && sudo rm -R ./node_modules;
+#[[ -f "${PROJECT_CODE_FOLDER}/node_modules.tar.gz" ]] && sudo tar -zxf "${PROJECT_CODE_FOLDER}/node_modules.tar.gz";
+#
+## Copy over the node_modules directory if its not there already
+#[[ -d "${PROJECT_CODE_FOLDER}/node_modules" ]] || mv "/tmp/node_modules/" "${PROJECT_CODE_FOLDER}/node_modules/";
+#
+## Compare extracted /tmp/node_modules to current /node_modules version
+#([[ -f "/tmp/node_modules/package.json" ]] && cmp -s "${PROJECT_CODE_FOLDER}/package.json" "/tmp/node_modules/package.json") || (
+#  printf "${RED}*** package.json file has been modified - running npm install ***${NC}\n";
+#  #npm config set loglevel="info";
+#  #npm config set progress=false;
+#  cd "${PROJECT_CODE_FOLDER}";
+#  [[ -d ./node_modules ]] && sudo rm -R ./node_modules;
+#  sudo npm install ./ --no-bin-links || exit 1;
+#  cp -ura ${PROJECT_CODE_FOLDER}/package.json ./node_modules/package.json;
+#  [[ -d ./node_modules/ascalongw-discord-bot ]] && sudo rm -R ./node_modules/ascalongw-discord-bot;
+#
+#  # After npm install, zip the new node_modules folder up for future deployments
+#  sudo tar -zcf "${PROJECT_CODE_FOLDER}/node_modules.tar.gz" node_modules;
+#);
+#
+## Remove /tmp/node_modules
+#[[ -d "/tmp/node_modules" ]] && sudo rm -R "/tmp/node_modules";
 
-# Copy over the node_modules directory if its not there already
-[[ -d "${PROJECT_CODE_FOLDER}/node_modules" ]] || mv "/tmp/node_modules/" "${PROJECT_CODE_FOLDER}/node_modules/";
-
-# Compare extracted /tmp/node_modules to current /node_modules version
-([[ -f "/tmp/node_modules/package.json" ]] && cmp -s "${PROJECT_CODE_FOLDER}/package.json" "/tmp/node_modules/package.json") || (
-  printf "${RED}*** package.json file has been modified - running npm install ***${NC}\n";
-  #npm config set loglevel="info";
-  #npm config set progress=false;
-  cd "${PROJECT_CODE_FOLDER}";
-  [[ -d ./node_modules ]] && sudo rm -R ./node_modules;
-  sudo npm install ./ --no-bin-links || exit 1;
-  cp -ura ${PROJECT_CODE_FOLDER}/package.json ./node_modules/package.json;
-  [[ -d ./node_modules/ascalongw-discord-bot ]] && sudo rm -R ./node_modules/ascalongw-discord-bot;
-
-  # After npm install, zip the new node_modules folder up for future deployments
-  sudo tar -zcf "${PROJECT_CODE_FOLDER}/node_modules.tar.gz" node_modules;
-);
-
-# Remove /tmp/node_modules
-[[ -d "/tmp/node_modules" ]] && sudo rm -R "/tmp/node_modules";
+cd "${PROJECT_CODE_FOLDER}"
+sudo npm install ./ --no-bin-links || exit 1;
 
 # Combine all of the above commands into a single string. touch /tmp/forever.log && forever start -a -l /tmp/forever.log -o /tmp/forever.log -e /tmp/forever.log server.js
 printf "${RED}*** ${PROJECT_CONTAINER}: Restarting server.js (forever stopall && forever start server.js) ***${NC}\n";

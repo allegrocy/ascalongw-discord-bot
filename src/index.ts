@@ -52,3 +52,18 @@ setInterval(function() {
     if (global.gc) {global.gc();}
   } catch(e) { }
 },60000);
+
+/*
+    Ping
+ */
+const express = require('express')
+const app = express()
+const port = 80
+
+app.get('/', (req: any, res: any) => {
+    res.send('ok')
+})
+
+app.listen(port, () => {
+    console.log(`Example app listening on port ${port}`)
+})
