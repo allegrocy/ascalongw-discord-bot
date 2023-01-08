@@ -42,11 +42,10 @@ export default class WikiCommand extends Command {
                 response_url = canonical[1];
             }
             return await searchMessage.edit(response_url);
-        } catch(e : any) {
-            return await searchMessage.edit([
-                `Sorry, something went wrong fetching results from ${url}.`,
-                e.toString()
-            ]);
+        } catch(error : any) {
+            // GWW can give error 403 if it suspects that we're a bot e.g. hosted on AWS etc
+            // NBD, but give the URL back to discord and it'll try to fill it out
+            return await searchMessage.edit(url);
         }
     }
 }
