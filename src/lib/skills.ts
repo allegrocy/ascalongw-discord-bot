@@ -1,3 +1,95 @@
+import skills from '../../assets/skills.json';
+export function getSkill(skillId : number) : any {
+    return skills[skillId] ?? null;
+}
+export function getSkillTypeName(skillData: NonNullable<typeof skills[number]>) {
+    return skillData.e ? `Elite ${getTypeName()}` : getTypeName();
+
+    function getTypeName() {
+        switch (skillData.t) {
+        case 3:
+            return 'Stance';
+        case 4:
+            return 'Hex Spell';
+        case 5:
+            return 'Spell';
+        case 6:
+            if (skillData.z?.sp && skillData.z.sp & 0x800000) {
+                return 'Flash Enchantment Spell';
+            }
+            return 'Enchantment Spell';
+        case 7:
+            return 'Signet';
+        case 9:
+            return 'Well Spell';
+        case 10:
+            return 'Touch Skill';
+        case 11:
+            return 'Ward Spell';
+        case 12:
+            return 'Glyph';
+        case 14:
+            switch (skillData.z?.q) {
+            case 1:
+                return 'Axe Attack';
+            case 2:
+                return 'Bow Attack';
+            case 8:
+                switch (skillData.z?.co) {
+                case 1:
+                    return 'Lead Attack';
+                case 2:
+                    return 'Off-Hand Attack';
+                case 3:
+                    return 'Dual Attack';
+                default:
+                    return 'Dagger Attack';
+                }
+            case 16:
+                return 'Hammer Attack';
+            case 32:
+                return 'Scythe Attack';
+            case 64:
+                return 'Spear Attack';
+            case 70:
+                return 'Ranged Attack';
+            case 128:
+                return 'Sword Attack';
+            }
+            return 'Melee Attack';
+        case 15:
+            return 'Shout';
+        case 19:
+            return 'Preparation';
+        case 20:
+            return 'Pet Attack';
+        case 21:
+            return 'Trap';
+        case 22:
+            switch (skillData.p) {
+            case Profession.Ritualist:
+                return 'Binding Ritual';
+            case Profession.Ranger:
+                return 'Nature Ritual';
+            default:
+                return 'Ebon Vanguard Ritual';
+            }
+        case 24:
+            return 'Item Spell';
+        case 25:
+            return 'Weapon Spell';
+        case 26:
+            return 'Form';
+        case 27:
+            return 'Chant';
+        case 28:
+            return 'Echo';
+        default:
+            return 'Skill';
+        }
+    }
+}
+
 export enum Profession {
     None,
     Warrior,
@@ -166,6 +258,9 @@ export function decodeTemplate(template: string): Skillbar | null {
     const skills = new Array(8);
     for (let i = 0; i < 8; i++) {
         skills[i] = read(skillBitLength);
+        if(!getSkill(skills[i])) {
+            return null;
+        }
     }
 
     return {
