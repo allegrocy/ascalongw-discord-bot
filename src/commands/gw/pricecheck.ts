@@ -51,7 +51,7 @@ export default class PricecheckCommand extends Command {
 
         const results = json.map(data => {
             const sender = data.s.padStart(20, ' ');
-            const time = formatDistanceToNow(new Date(data.t), { addSuffix: true });
+            const time = formatDistanceToNow(new Date(+data.t), { addSuffix: true });
             const prefix = `${sender}, ${time}:`.padEnd(42, ' ');
             return `${prefix} ${data.m}`;
         });
